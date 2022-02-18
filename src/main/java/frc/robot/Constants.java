@@ -12,9 +12,9 @@ public class Constants {
 
         //wheel ports
         public static final int kFrontLeftWheelPort = 2;
-        public static final int kFrontRightWheelPort = 6;
-        public static final int kBackLeftWheelPort = 3;
-        public static final int kBackRightWheelPort = 5;
+        public static final int kFrontRightWheelPort = 3;
+        public static final int kBackLeftWheelPort = 6;
+        public static final int kBackRightWheelPort = 4;
 
         //drivetrain stuff
         public static double speed = 0.5; //speed control 
@@ -22,9 +22,9 @@ public class Constants {
         public static double ks = 0.10049;
         public static double kv = 2.5175;
         public static double ka = 0.46019;
-        public static final double kTrackWidth = 0.53; //20.5 - 21 in
+        public static final double kTrackWidth = 0.585; //23 in
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = 0.52; //20.25-20.5 in
+        public static final double kWheelBase = 0.52; //20.5 in
         // Distance between centers of front and back wheels on robot
         
         // Example value only - as above, this must be tuned for your drive!
@@ -65,19 +65,25 @@ public class Constants {
     
     }
     public static final class IntakeConstants {
-        public static final int kIntakePort = 4;
-        public static final double kIntakeSpeed = -0.5;
+        public static final int kIntakePort = 5;
+        public static final double kIntakeSpeed = 0.9;
+    }
+
+    public static final class LiftConstants{
+        public static final int kLift1Port = 8;
+        public static final int kLift2Port = 7;
+        public static final int kIdealLiftSpeed = -0.25;
     }
 
     public static final class ShooterConstants {
-        public static final int kShooter1Port = 1;
-        public static final int kShooter2Port = 7;
+        public static final int kShooter1Port = 10;
+        public static final int kShooter2Port = 9;
         public static final int kIndexPort = 0;
 
         public static final double kIndexClosedPosition = 0.5;
         public static final double kIndexOpenPosition = 0.35;
 
-        public static final double kIdealShotSpeed = -0.4; //ideal motor speed to run the shooter at
+        public static final double kIdealShotSpeed = 0.7; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
         public static final double shooterSpeed = 100;

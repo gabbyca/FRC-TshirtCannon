@@ -47,6 +47,7 @@ public class RobotContainer {
   final DriveSubsystem m_drive = new DriveSubsystem();
   final IntakeSubsystem m_intake = new IntakeSubsystem();
   final ShooterSubsystem m_shooter = new ShooterSubsystem();
+  final LiftSubsystem m_lift = new LiftSubsystem();
   final LimelightSubsystem m_camera = new LimelightSubsystem();
   //commands
   private final FieldOrientedDrive m_FOD = new FieldOrientedDrive(m_drive, () -> m_joystick1.getRawAxis(JoystickConstants.kYStick2),
@@ -58,6 +59,8 @@ public class RobotContainer {
   private final IntakeCommand m_stopIntake = new IntakeCommand(m_intake, 0);
   private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_intake, m_camera, ShooterConstants.kIdealShotSpeed);
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_intake, m_camera, 0);
+  private final LiftCommand m_liftUp = new LiftCommand(m_lift, LiftConstants.kIdealLiftSpeed);
+  private final LiftCommand m_liftDown = new LiftCommand(m_lift, -LiftConstants.kIdealLiftSpeed);
   private final SpeedControl m_slowMode = new SpeedControl(0.5);
   private final SpeedControl m_fastMode = new SpeedControl(1);
 
@@ -120,7 +123,6 @@ public class RobotContainer {
     new JoystickButton(m_joystick1, 5)
       .whileHeld(m_fastMode)
       .whenReleased(m_slowMode);
-    
   }
 
 

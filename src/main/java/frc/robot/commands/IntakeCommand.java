@@ -15,15 +15,9 @@ public class IntakeCommand extends CommandBase {
     }
     @Override
     public void execute() {
-        if(m_intake.getInches() > 12){
-            m_intake.succ(m_speed);
-        }
-        else{
-            m_intake.succ(m_speed);
-            Robot.wait(2000);
-            m_intake.succ(0);
-            m_intake.gotOne();
-        }
+        m_intake.succ(m_speed);
+        
+        
     }
     
 }
