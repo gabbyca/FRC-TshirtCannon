@@ -13,6 +13,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -58,12 +59,16 @@ public class RobotContainer {
     () -> m_joystick1.getRawAxis(JoystickConstants.kXStick2));
   
   private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
+
   private final IntakeCommand m_runIntake = new IntakeCommand(m_intake, IntakeConstants.kIntakeSpeed);
   private final IntakeCommand m_stopIntake = new IntakeCommand(m_intake, 0);
+
   private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_intake, m_camera, ShooterConstants.kIdealShotSpeed);
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_intake, m_camera, 0);
+
   private final LiftCommand m_liftUp = new LiftCommand(m_lift, LiftConstants.kIdealLiftSpeed);
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, -LiftConstants.kIdealLiftSpeed);
+
   private final LiftCommand m_liftStop = new LiftCommand(m_lift, 0);
   private final SpeedControl m_slowMode = new SpeedControl(0.5);
   private final SpeedControl m_fastMode = new SpeedControl(1);
@@ -128,13 +133,13 @@ public class RobotContainer {
       .whileHeld(m_fastMode)
       .whenReleased(m_slowMode);
 
-    new JoystickButton(m_joystick1, 6)
+    new POVButton(m_joystick1, 0) //dpad up
       .whenPressed(m_liftUp)
       .whenReleased(m_liftStop);
-
-    new JoystickButton(m_joystick1, 7)
-      .whenPressed(m_liftDown) 
-      .whenReleased(m_liftStop);
+    
+    new POVButton(m_joystick1, 180) //dpad down
+      .whenPressed(m_liftDown)
+      .whenReleased(m_liftStop); 
   }
 
 
