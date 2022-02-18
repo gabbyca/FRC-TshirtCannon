@@ -72,7 +72,11 @@ public class Constants {
     public static final class LiftConstants{
         public static final int kLift1Port = 8;
         public static final int kLift2Port = 7;
-        public static final int kIdealLiftSpeed = -0.25;
+
+        public static final double kIdealLiftSpeed = -0.25;
+
+        public static final int bottomPose = 0; //bottom limit
+        public static final int topPose = 140; //top limit
     }
 
     public static final class ShooterConstants {
@@ -83,7 +87,7 @@ public class Constants {
         public static final double kIndexClosedPosition = 0.5;
         public static final double kIndexOpenPosition = 0.35;
 
-        public static final double kIdealShotSpeed = 0.7; //ideal motor speed to run the shooter at
+        public static final double kIdealShotSpeed = 0.5; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
         public static final double shooterSpeed = 100;

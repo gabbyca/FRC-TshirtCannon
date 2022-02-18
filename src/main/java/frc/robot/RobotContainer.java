@@ -21,14 +21,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.JoystickConstants;
+import frc.robot.Constants.LiftConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AlignToGoal;
 import frc.robot.commands.FieldOrientedDrive;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.LiftCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.SpeedControl;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -61,6 +64,7 @@ public class RobotContainer {
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_intake, m_camera, 0);
   private final LiftCommand m_liftUp = new LiftCommand(m_lift, LiftConstants.kIdealLiftSpeed);
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, -LiftConstants.kIdealLiftSpeed);
+  private final LiftCommand m_liftStop = new LiftCommand(m_lift, 0);
   private final SpeedControl m_slowMode = new SpeedControl(0.5);
   private final SpeedControl m_fastMode = new SpeedControl(1);
 
@@ -123,6 +127,14 @@ public class RobotContainer {
     new JoystickButton(m_joystick1, 5)
       .whileHeld(m_fastMode)
       .whenReleased(m_slowMode);
+
+    new JoystickButton(m_joystick1, 6)
+      .whenPressed(m_liftUp)
+      .whenReleased(m_liftStop);
+
+    new JoystickButton(m_joystick1, 7)
+      .whenPressed(m_liftDown) 
+      .whenReleased(m_liftStop);
   }
 
 

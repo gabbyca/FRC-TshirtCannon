@@ -25,7 +25,8 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     
     public ShooterSubsystem() { 
-        m_shooter2.follow(m_shooter); 
+        m_shooter.setInverted(false);
+        m_shooter2.follow(m_shooter, true);
     }
      
     /**

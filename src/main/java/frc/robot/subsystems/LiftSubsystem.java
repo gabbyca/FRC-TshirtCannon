@@ -1,18 +1,16 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.LiftConstants;
 
 public class LiftSubsystem extends SubsystemBase {
     private static CANSparkMax m_lift = new CANSparkMax(LiftConstants.kLift1Port, MotorType.kBrushed);
-    private static RelativeEncoder liftEncoder = m_shooter.getEncoder(Type.kQuadrature, 1024);
+    private static RelativeEncoder liftEncoder = m_lift.getEncoder(Type.kQuadrature, 2048);
     private CANSparkMax m_lift2 = new CANSparkMax(LiftConstants.kLift2Port, MotorType.kBrushed);
 
     /**
@@ -23,7 +21,13 @@ public class LiftSubsystem extends SubsystemBase {
      */
     
     public LiftSubsystem() { 
-        m_lift2.follow(m_shooter); 
+        liftEncoder.setPosition(0);
+        liftEncoder.setInverted(true);
+        liftEncoder.setPositionConversionFactor(10);
+        m_lift.setInverted(false);
+        m_lift2.follow(m_lift, true);
+        m_lift.setIdleMode(IdleMode.kBrake);
+        m_lift2.setIdleMode(IdleMode.kBrake);
     }
      
     /**
@@ -33,4 +37,7 @@ public class LiftSubsystem extends SubsystemBase {
         m_lift.set(speed);
     }
 
+    public double getPose(){
+        return liftEncoder.getPosition();
+    }
 }

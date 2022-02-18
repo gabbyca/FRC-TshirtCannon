@@ -4,13 +4,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LiftSubsystem;
 
 public class LiftCommand extends CommandBase {
-    LiftSubsystem m_intake;
+    LiftSubsystem m_lift;
     private final double m_speed;
 
     public LiftCommand(LiftSubsystem lift, double speed) {
         m_lift = lift;
         m_speed = speed;
-        addRequirements(m_intake);
+        addRequirements(m_lift);
     }
     @Override
     public void execute() {
