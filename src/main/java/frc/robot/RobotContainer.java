@@ -11,9 +11,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.POVButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,8 +43,8 @@ import frc.robot.subsystems.ShooterSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  Joystick m_joystick1 = new Joystick(JoystickConstants.kJoysick1Port);
-  Joystick m_joystick2 = new Joystick(JoystickConstants.kJoystick2Port);
+  XboxController m_joystick1 = new XboxController(JoystickConstants.kJoysick1Port);
+  XboxController m_joystick2 = new XboxController(JoystickConstants.kJoystick2Port);
   
   //subsystems
   final DriveSubsystem m_drive = new DriveSubsystem();

@@ -1,9 +1,0 @@
-[
-  {
-    "artifact": "frcJava (in project Comp-Sci-IA)",
-    "target": "roborio",
-    "debugfile": "frcJava_roborio.debugconfig",
-    "project": "Comp-Sci-IA",
-    "language": "java"
-  }
-]
