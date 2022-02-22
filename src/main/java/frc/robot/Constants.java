@@ -69,6 +69,11 @@ public class Constants {
         public static final double kIntakeSpeed = 0.9;
     }
 
+    public static final class ConveyorConstants{
+        public static final int kConveyorPort = 1;
+        public static final double kConveyorSpeed = 0.6;
+    }
+
     public static final class LiftConstants{
         public static final int kLift1Port = 8;
         public static final int kLift2Port = 7;
