@@ -74,6 +74,11 @@ public class Constants {
         public static final double kConveyorSpeed = 0.6;
     }
 
+    public static final class FeederConstants{
+        public static final int kFeederPort = 11;
+        public static final double kFeederSpeed = 0.4;
+    }
+
     public static final class LiftConstants{
         public static final int kLift1Port = 8;
         public static final int kLift2Port = 7;

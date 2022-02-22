@@ -15,8 +15,6 @@ public class LiftCommand extends CommandBase {
     @Override
     public void execute() {
         m_lift.liftUp(m_speed);
-        
-        
     }
     
 }

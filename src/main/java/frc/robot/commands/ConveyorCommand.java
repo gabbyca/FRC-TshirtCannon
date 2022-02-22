@@ -14,9 +14,7 @@ public class ConveyorCommand extends CommandBase {
     }
     @Override
     public void execute() {
-        m_conveyor.liftUp(m_speed);
-        
-        
+        m_conveyor.convey(m_speed);
     }
     
 }

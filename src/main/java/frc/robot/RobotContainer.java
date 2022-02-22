@@ -20,12 +20,14 @@ import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.FeederConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.JoystickConstants;
 import frc.robot.Constants.LiftConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AlignToGoal;
 import frc.robot.commands.ConveyorCommand;
+import frc.robot.commands.FeederCommand;
 import frc.robot.commands.FieldOrientedDrive;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LiftCommand;
@@ -33,6 +35,7 @@ import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.SpeedControl;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
@@ -55,6 +58,7 @@ public class RobotContainer {
   final ShooterSubsystem m_shooter = new ShooterSubsystem();
   final LiftSubsystem m_lift = new LiftSubsystem();
   final ConveyorSubsystem m_conveyor = new ConveyorSubsystem();
+  final FeederSubsystem m_feeder = new FeederSubsystem();
   final LimelightSubsystem m_camera = new LimelightSubsystem();
   //commands
   private final FieldOrientedDrive m_FOD = new FieldOrientedDrive(m_drive, () -> m_joystick1.getRawAxis(JoystickConstants.kYStick2),
@@ -73,7 +77,10 @@ public class RobotContainer {
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, -LiftConstants.kIdealLiftSpeed);
 
   private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
-  private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, -ConveyorConstants.kConveyorSpeed);
+  private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);
+
+  private final FeederCommand m_runFeeder = new FeederCommand(m_feeder, FeederConstants.kFeederSpeed);
+  private final FeederCommand m_stopFeeder = new FeederCommand(m_feeder, 0);
 
   private final LiftCommand m_liftStop = new LiftCommand(m_lift, 0);
   private final SpeedControl m_slowMode = new SpeedControl(0.5);
@@ -142,6 +149,10 @@ public class RobotContainer {
     new JoystickButton(m_joystick1, 6)
       .whileHeld(m_runConveyor)
       .whenReleased(m_stopConveyor);
+
+    new JoystickButton(m_joystick1, 7)
+      .whileHeld(m_runFeeder)
+      .whenReleased(m_stopFeeder);
 
     new POVButton(m_joystick1, 0) //dpad up
       .whenPressed(m_liftUp)
