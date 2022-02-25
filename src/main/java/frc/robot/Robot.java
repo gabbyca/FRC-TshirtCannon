@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import io.github.oblarg.oblog.Logger;
 
 
 /**
@@ -45,6 +46,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.m_drive.motorBrake();
     Field2d m_field = new Field2d();
     SmartDashboard.putData(m_field);
+    Logger.configureLoggingAndConfig(this, false);
 
     // Push the trajectory to Field2d.
     m_field.getObject("traj").setTrajectory(Trajectories.exampleTrajectory);
@@ -66,6 +68,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    Logger.updateEntries();
   }
 
   /**

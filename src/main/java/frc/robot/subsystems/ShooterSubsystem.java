@@ -7,11 +7,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ShooterConstants;
+import io.github.oblarg.oblog.annotations.Config;
 
 public class ShooterSubsystem extends SubsystemBase {
     private static CANSparkMax m_shooter = new CANSparkMax(ShooterConstants.kShooter1Port, MotorType.kBrushed);
     private static RelativeEncoder m_shooterEncoder = m_shooter.getEncoder();
     private CANSparkMax m_shooter2 = new CANSparkMax(ShooterConstants.kShooter2Port, MotorType.kBrushless);
+    @Config
     static PIDController m_pid = new PIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD);
 
     public ShooterSubsystem() { 

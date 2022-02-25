@@ -9,11 +9,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LiftConstants;
+import io.github.oblarg.oblog.annotations.Config;
 
 public class LiftSubsystem extends SubsystemBase {
     private static CANSparkMax m_lift = new CANSparkMax(LiftConstants.kLift1Port, MotorType.kBrushed);
     private static RelativeEncoder m_liftEncoder = m_lift.getEncoder(Type.kQuadrature, 2048);
     private CANSparkMax m_lift2 = new CANSparkMax(LiftConstants.kLift2Port, MotorType.kBrushed);
+    @Config
     private PIDController m_pid = new PIDController(LiftConstants.kP, LiftConstants.kI, LiftConstants.kD);
 
     public LiftSubsystem() { 
