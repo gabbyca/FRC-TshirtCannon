@@ -95,6 +95,10 @@ public class Constants {
         public static final double kD = 0;
     }
 
+    public static final class TurretConstants{
+        public static final int kTurretPort = 12;
+    }
+
     public static final class ShooterConstants {
         public static final int kShooter1Port = 10;
         public static final int kShooter2Port = 9;

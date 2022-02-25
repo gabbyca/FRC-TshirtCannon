@@ -95,4 +95,8 @@ public class LimelightSubsystem extends SubsystemBase {
       }
       return 0;
     }
+
+    public boolean alignedToGoal(){
+      return getTX()== 0;
+    }
 }
