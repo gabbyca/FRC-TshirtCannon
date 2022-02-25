@@ -12,15 +12,15 @@ import frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
     private  CANSparkMax m_intake = new CANSparkMax(IntakeConstants.kIntakePort, MotorType.kBrushed);
 
-    private final AnalogInput ultrasonic = new AnalogInput(0);
+    private final AnalogInput m_ultrasonic = new AnalogInput(0);
 
-    private static int count;
+    private static int m_count;
     /**
      * this is the class for the intake
      * thats it its really simple
      */
     public IntakeSubsystem() {
-        count = 0;
+        m_count = 0;
     }
     
     /**
@@ -34,15 +34,15 @@ public class IntakeSubsystem extends SubsystemBase {
     }
     
     public int getCount(){
-        return count;
+        return m_count;
     }
 
     public void gotOne(){
-        count++;
+        m_count++;
     }
 
     public void shotOne(){
-        count--;
+        m_count--;
     }
 
     public boolean inIntake(){
@@ -51,13 +51,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public double getInches(){
         double voltage_scale_factor = 5/RobotController.getVoltage5V();
-        double rawValue = ultrasonic.getValue();
+        double rawValue = m_ultrasonic.getValue();
         return rawValue * voltage_scale_factor * 0.0492;
     }
 
     public double getMM(){
         double voltage_scale_factor = 5/RobotController.getVoltage5V();
-        double rawValue = ultrasonic.getValue();
+        double rawValue = m_ultrasonic.getValue();
         return rawValue * voltage_scale_factor * 0.125;
     }
 }

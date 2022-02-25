@@ -87,6 +87,12 @@ public class Constants {
 
         public static final int bottomPose = 0; //bottom limit
         public static final int topPose = 140; //top limit
+
+        public static final double liftSpeed = 100;
+
+        public static final double kP = 0.1;
+        public static final double kI = 0;
+        public static final double kD = 0;
     }
 
     public static final class ShooterConstants {

@@ -73,8 +73,8 @@ public class RobotContainer {
   private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_intake, m_camera, ShooterConstants.kIdealShotSpeed);
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_intake, m_camera, 0);
 
-  private final LiftCommand m_liftUp = new LiftCommand(m_lift, LiftConstants.kIdealLiftSpeed);
-  private final LiftCommand m_liftDown = new LiftCommand(m_lift, -LiftConstants.kIdealLiftSpeed);
+  private final LiftCommand m_liftUp = new LiftCommand(m_lift, LiftConstants.topPose);
+  private final LiftCommand m_liftDown = new LiftCommand(m_lift, LiftConstants.bottomPose);
 
   private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
   private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);

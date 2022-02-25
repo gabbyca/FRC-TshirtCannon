@@ -10,17 +10,11 @@ import frc.robot.Constants.ConveyorConstants;
 
 public class ConveyorSubsystem extends SubsystemBase {
     private static CANSparkMax m_conveyor = new CANSparkMax(ConveyorConstants.kConveyorPort, MotorType.kBrushed);
-    private static RelativeEncoder conveyorEncoder = m_conveyor.getEncoder(Type.kQuadrature, 2048);
+    private static RelativeEncoder m_conveyorEncoder = m_conveyor.getEncoder(Type.kQuadrature, 2048);
 
-    /**
-     * this is the lift class we have two motors for the shooting, but since they
-     * always follow eachother, we just have lift2 follow shooter also, index is
-     * a servo that moves up or down depending on if we want the servo to go in or
-     * not
-     */
     
     public ConveyorSubsystem() { 
-        conveyorEncoder.setPosition(0);
+        m_conveyorEncoder.setPosition(0);
         //liftEncoder.setInverted(true);
         //conveyorEncoder.setPositionConversionFactor(10);
         m_conveyor.setInverted(false);
@@ -35,6 +29,6 @@ public class ConveyorSubsystem extends SubsystemBase {
     }
 
     public double getPose(){
-        return conveyorEncoder.getPosition();
+        return m_conveyorEncoder.getPosition();
     }
 }

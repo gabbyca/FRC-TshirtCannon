@@ -127,6 +127,10 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Element X", m_robotContainer.m_camera.getTX());
     SmartDashboard.putNumber("Element Y", m_robotContainer.m_camera.getTY());
     SmartDashboard.putNumber("Lift Pose", m_robotContainer.m_lift.getPose());
+
+    //update PID's
+    m_robotContainer.m_shooter.updatePid();
+    m_robotContainer.m_lift.updatePid();
   }
 
   @Override
