@@ -23,7 +23,7 @@ public class FeederSubsystem extends SubsystemBase {
         feederEncoder.setPosition(0);
         //liftEncoder.setInverted(true);
         //conveyorEncoder.setPositionConversionFactor(10);
-        m_feeder.setInverted(false);
+        m_feeder.setInverted(true);
         m_feeder.setIdleMode(IdleMode.kBrake);
     }
      
