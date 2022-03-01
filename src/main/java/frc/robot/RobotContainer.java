@@ -189,6 +189,62 @@ public class RobotContainer {
       .whenReleased(m_turretStop);
   }
 
+  /**
+   * Use this method to define your button->command mappings.  Buttons can be created by
+   * instantiating a {@link GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   */
+  void configureTestBindings() {
+
+    m_joystick1.a()
+      .whenPressed(m_runIntake)
+      .whenReleased(m_stopIntake);
+    
+    m_joystick1.x()
+      .whenPressed(m_runShooter);
+
+    m_joystick1.b()
+      .whenPressed(m_stopShooter);
+    
+    m_joystick1.y()
+      .whenPressed(m_alignToGoal); 
+
+    m_joystick1.leftBumper()
+      .whileHeld(m_fastMode)
+      .whenReleased(m_slowMode);
+
+    m_joystick1.rightBumper()
+      .whileHeld(m_runConveyor)
+      .whenReleased(m_stopConveyor);
+
+    m_joystick1.back()
+      .whileHeld(m_runFeeder)
+      .whenReleased(m_stopFeeder);
+
+    m_joystick1.start()
+      .whenPressed(m_dropIntake)
+      .whenReleased(m_holdIntake);
+
+    m_joystick1.leftStick()
+      .whenPressed(m_raiseIntake)
+      .whenReleased(m_holdIntake);
+
+    m_joystick1.dpadUp()
+      .whenPressed(m_liftUp);
+    
+    m_joystick1.dpadDown()
+      .whenPressed(m_liftDown);
+
+    m_joystick1.dpadRight()
+      .whenPressed(m_turretRight)
+      .whenReleased(m_turretStop);
+    
+    m_joystick1.dpadLeft()
+      .whenPressed(m_turretLeft)
+      .whenReleased(m_turretStop);
+  }
+
 
 
   /**

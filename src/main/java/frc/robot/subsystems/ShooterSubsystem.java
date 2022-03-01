@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,7 +17,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private static RelativeEncoder m_shooterEncoder = m_shooter.getEncoder();
     private CANSparkMax m_shooter2 = new CANSparkMax(ShooterConstants.kShooter2Port, MotorType.kBrushless);
     @Config
-    static PIDController m_pid = new PIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD);
+    static ProfiledPIDController m_pid = new ProfiledPIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD, ShooterConstants.constraints);
     public static final SimpleMotorFeedforward m_ff =
         new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV, ShooterConstants.kA);
 
@@ -26,7 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooter2.setIdleMode(IdleMode.kCoast);
         m_shooter.setInverted(false);
         m_shooter2.follow(m_shooter, true);
-        m_pid.setSetpoint(0);
+        m_pid.setGoal(0);
         m_shooterEncoder.setPosition(0);
         m_shooterEncoder.setPositionConversionFactor(1);
         m_shooterEncoder.setVelocityConversionFactor(1);
@@ -36,14 +37,14 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param speed = speed to shoot at
      */
     public void shoot(double speed) {
-        m_pid.setSetpoint(speed);
+        m_pid.setGoal(speed);
         setpoint = speed;
 
     }
 
     public void updatePid() {
         if(setpoint != 0)
-            m_shooter.setVoltage(m_pid.calculate(this.getVelocity()) + m_ff.calculate(setpoint) + 0.9);
+            m_shooter.setVoltage(m_pid.calculate(this.getVelocity()) + ShooterConstants.kF);
 
         else
         m_shooter.set(0);

@@ -114,15 +114,18 @@ public class Constants {
         public static final double kIdealShotSpeed = 0.5; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
-        public static final double shooterSpeed = 8000;
+        public static final double shooterSpeed = 4000;
 
         public static final double kS = 0; //0.052824
         public static final double kV = 0; //0.12603
         public static final double kA = 0; //0.0055052
 
-        public static final double kP = 0.003; //2.5946 * Math.pow(10, -10)
+        public static final double kP = 0.002; //2.5946 * Math.pow(10, -10)
         public static final double kI = 0;
         public static final double kD = 0;
+        public static final double kF = 8.6;
+
+        public static TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(10000, 1000);
     }
     public static final class JoystickConstants {
         public static final int kXStick1 = 0;
