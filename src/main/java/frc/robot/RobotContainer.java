@@ -174,17 +174,17 @@ public class RobotContainer {
       .whenPressed(m_raiseIntake)
       .whenReleased(m_holdIntake);
 
-    m_joystick1.dpadUp() //dpad up
+    m_joystick1.dpadUp()
       .whenPressed(m_liftUp);
     
-    m_joystick1.dpadDown() //dpad down
+    m_joystick1.dpadDown()
       .whenPressed(m_liftDown);
 
-    m_joystick1.dpadRight() //dpad right
+    m_joystick1.dpadRight()
       .whenPressed(m_turretRight)
       .whenReleased(m_turretStop);
     
-    m_joystick1.dpadLeft() //dpad left
+    m_joystick1.dpadLeft()
       .whenPressed(m_turretLeft)
       .whenReleased(m_turretStop);
   }
