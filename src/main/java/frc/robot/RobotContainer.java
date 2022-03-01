@@ -7,17 +7,16 @@
 
 package frc.robot;
 
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.FeederConstants;
@@ -53,8 +52,8 @@ import frc.robot.subsystems.TurretSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  XboxController m_joystick1 = new XboxController(JoystickConstants.kJoysick1Port);
-  XboxController m_joystick2 = new XboxController(JoystickConstants.kJoystick2Port);
+  Joystick m_joystick1 = new Joystick(JoystickConstants.kJoystick1Port);
+  Joystick m_joystick2 = new Joystick(JoystickConstants.kJoystick2Port);
   
   //subsystems
   final DriveSubsystem m_drive = new DriveSubsystem();
@@ -66,9 +65,9 @@ public class RobotContainer {
   final TurretSubsystem m_turret = new TurretSubsystem();
   final LimelightSubsystem m_camera = new LimelightSubsystem();
   //commands
-  private final FieldOrientedDrive m_FOD = new FieldOrientedDrive(m_drive, () -> m_joystick1.getRawAxis(JoystickConstants.kYStick2),
-   () -> m_joystick1.getRawAxis(JoystickConstants.kXStick1),
-    () -> m_joystick1.getRawAxis(JoystickConstants.kXStick2));
+  private final FieldOrientedDrive m_FOD = new FieldOrientedDrive(m_drive, () -> m_joystick1.rightY(),
+   () -> m_joystick1.leftX(),
+    () -> m_joystick1.rightX());
   
   private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
 
@@ -142,50 +141,50 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(m_joystick1, 1)
+    m_joystick1.a()
       .whenPressed(m_runIntake)
       .whenReleased(m_stopIntake);
     
-    new JoystickButton(m_joystick1, 2)
+    m_joystick1.x()
       .whenPressed(m_runShooter);
 
-    new JoystickButton(m_joystick1, 3)
+    m_joystick1.b()
       .whenPressed(m_stopShooter);
     
-    new JoystickButton(m_joystick1, 4)
+    m_joystick1.y()
       .whenPressed(m_alignToGoal); 
 
-    new JoystickButton(m_joystick1, 5)
+    m_joystick1.leftBumper()
       .whileHeld(m_fastMode)
       .whenReleased(m_slowMode);
 
-    new JoystickButton(m_joystick1, 6)
+    m_joystick1.rightBumper()
       .whileHeld(m_runConveyor)
       .whenReleased(m_stopConveyor);
 
-    new JoystickButton(m_joystick1, 7)
+    m_joystick1.back()
       .whileHeld(m_runFeeder)
       .whenReleased(m_stopFeeder);
 
-    new JoystickButton(m_joystick1, 8)
+    m_joystick1.start()
       .whenPressed(m_dropIntake)
       .whenReleased(m_holdIntake);
 
-    new JoystickButton(m_joystick1, 9)
+    m_joystick1.leftStick()
       .whenPressed(m_raiseIntake)
       .whenReleased(m_holdIntake);
 
-    new POVButton(m_joystick1, 0) //dpad up
+    m_joystick1.dpadUp() //dpad up
       .whenPressed(m_liftUp);
     
-    new POVButton(m_joystick1, 180) //dpad down
+    m_joystick1.dpadDown() //dpad down
       .whenPressed(m_liftDown);
 
-    new POVButton(m_joystick1, 90) //dpad up
+    m_joystick1.dpadRight() //dpad right
       .whenPressed(m_turretRight)
       .whenReleased(m_turretStop);
     
-    new POVButton(m_joystick1, 270) //dpad down
+    m_joystick1.dpadLeft() //dpad left
       .whenPressed(m_turretLeft)
       .whenReleased(m_turretStop);
   }

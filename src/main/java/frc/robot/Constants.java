@@ -130,7 +130,7 @@ public class Constants {
         public static final int kXStick2 = 4;
         public static final int kYStick2 = 5;
 
-        public static final int kJoysick1Port = 0;
+        public static final int kJoystick1Port = 0;
         public static final int kJoystick2Port = 1;
     }
 
