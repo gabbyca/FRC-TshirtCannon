@@ -42,7 +42,12 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void updatePid() {
-        m_shooter.setVoltage(m_pid.calculate(this.getVelocity()) + m_ff.calculate(setpoint) + 0.9);
+        if(setpoint != 0)
+            m_shooter.setVoltage(m_pid.calculate(this.getVelocity()) + m_ff.calculate(setpoint) + 0.9);
+
+        else
+        m_shooter.set(0);
+
     }
 
     public void speedUp(){
