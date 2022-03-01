@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LiftConstants;
@@ -17,15 +18,17 @@ public class LiftSubsystem extends SubsystemBase {
     private CANSparkMax m_lift2 = new CANSparkMax(LiftConstants.kLift2Port, MotorType.kBrushed);
     @Config
     private PIDController m_pid = new PIDController(LiftConstants.kP, LiftConstants.kI, LiftConstants.kD);
+    
 
     public LiftSubsystem() { 
         m_liftEncoder.setPosition(0);
         m_liftEncoder.setInverted(true);
         m_liftEncoder.setPositionConversionFactor(10);
-        m_lift.setInverted(false);
+        m_lift.setInverted(true);
         m_lift2.follow(m_lift, true);
         m_lift.setIdleMode(IdleMode.kBrake);
         m_lift2.setIdleMode(IdleMode.kBrake);
+        m_pid.setSetpoint(0);
     }
      
     /**
@@ -36,7 +39,7 @@ public class LiftSubsystem extends SubsystemBase {
     }
 
     public void updatePid() {
-        m_lift.set(m_pid.calculate(this.getPose()));
+        m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower, LiftConstants.kMaxLiftPower));
     }
 
     public double getPose(){

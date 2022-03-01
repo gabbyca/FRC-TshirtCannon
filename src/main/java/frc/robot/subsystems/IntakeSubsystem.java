@@ -5,12 +5,15 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-    private  CANSparkMax m_intake = new CANSparkMax(IntakeConstants.kIntakePort, MotorType.kBrushed);
+    private static CANSparkMax m_intake = new CANSparkMax(IntakeConstants.kIntakePort, MotorType.kBrushed);
+
+    private  static CANSparkMax m_intakeDrop = new CANSparkMax(IntakeConstants.kIntakeDropPort, MotorType.kBrushed);
 
     private final AnalogInput m_ultrasonic = new AnalogInput(0);
 
@@ -20,6 +23,8 @@ public class IntakeSubsystem extends SubsystemBase {
      * thats it its really simple
      */
     public IntakeSubsystem() {
+        m_intake.setIdleMode(IdleMode.kCoast);
+        m_intakeDrop.setIdleMode(IdleMode.kBrake);
         m_count = 0;
     }
     
@@ -33,6 +38,9 @@ public class IntakeSubsystem extends SubsystemBase {
             m_intake.set(speed);
     }
     
+    public void drop(double speed){
+            m_intakeDrop.set(speed);
+    }
     public int getCount(){
         return m_count;
     }

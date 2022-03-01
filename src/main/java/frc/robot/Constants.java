@@ -67,6 +67,10 @@ public class Constants {
     public static final class IntakeConstants {
         public static final int kIntakePort = 5;
         public static final double kIntakeSpeed = 0.9;
+
+        public static final int kIntakeDropPort = 13;
+        public static final double kIntakeDropSpeed = 0.6;
+        public static final int kIntakeDropTime = 2000;
     }
 
     public static final class ConveyorConstants{
@@ -86,33 +90,37 @@ public class Constants {
         public static final double kIdealLiftSpeed = -0.25;
 
         public static final int bottomPose = 0; //bottom limit
-        public static final int topPose = 140; //top limit
+        public static final int topPose = 137; //top limit
 
         public static final double liftSpeed = 100;
 
-        public static final double kP = 0.1;
+        public static final double kP = 0.04;
         public static final double kI = 0;
         public static final double kD = 0;
+
+        public static final double kMaxLiftPower = 0.6;
     }
 
     public static final class TurretConstants{
         public static final int kTurretPort = 12;
+
+        public static final double kTurretSpeed = 0.3;
     }
 
     public static final class ShooterConstants {
         public static final int kShooter1Port = 10;
         public static final int kShooter2Port = 9;
-        public static final int kIndexPort = 0;
-
-        public static final double kIndexClosedPosition = 0.5;
-        public static final double kIndexOpenPosition = 0.35;
 
         public static final double kIdealShotSpeed = 0.5; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
-        public static final double shooterSpeed = 100;
+        public static final double shooterSpeed = 8000;
 
-        public static final double kP = 0.1;
+        public static final double kS = 0; //0.052824
+        public static final double kV = 0; //0.12603
+        public static final double kA = 0; //0.0055052
+
+        public static final double kP = 0.003; //2.5946 * Math.pow(10, -10)
         public static final double kI = 0;
         public static final double kD = 0;
     }
