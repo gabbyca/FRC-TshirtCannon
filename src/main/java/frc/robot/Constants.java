@@ -111,12 +111,12 @@ public class Constants {
         public static final int kShooter1Port = 10;
         public static final int kShooter2Port = 9;
 
-        public static final int kServoPort = 0;
+        public static final int kServoPort = 1;
 
         public static final double kIdealShotSpeed = 0.5; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
-        public static final double shooterSpeed = 4000;
+        public static final double shooterSpeed = 6000;
 
         public static final double kS = 0; //0.052824
         public static final double kV = 0; //0.12603

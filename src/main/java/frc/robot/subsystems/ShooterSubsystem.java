@@ -18,7 +18,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private static RelativeEncoder m_shooterEncoder = m_shooter.getEncoder();
     private CANSparkMax m_shooter2 = new CANSparkMax(ShooterConstants.kShooter2Port, MotorType.kBrushless);
     @Config
-    static ProfiledPIDController m_pid = new ProfiledPIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD, ShooterConstants.constraints);
+    static ProfiledPIDController m_pid = new ProfiledPIDController(ShooterConstants.kP, ShooterConstants.kI, ShooterConstants.kD,
+        ShooterConstants.constraints);
     public static final SimpleMotorFeedforward m_ff =
         new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV, ShooterConstants.kA);
 
@@ -40,6 +41,7 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public void shoot(double speed) {
         m_pid.setGoal(speed);
+        m_pid.setConstraints(ShooterConstants.constraints);
         setpoint = speed;
 
     }
