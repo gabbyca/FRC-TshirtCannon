@@ -4,15 +4,16 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.ShooterConstants;
 import io.github.oblarg.oblog.annotations.Config;
 
 public class ShooterSubsystem extends SubsystemBase {
+    private static Servo m_angle = new Servo(ShooterConstants.kServoPort);
     private static CANSparkMax m_shooter = new CANSparkMax(ShooterConstants.kShooter1Port, MotorType.kBrushless);
     private static RelativeEncoder m_shooterEncoder = m_shooter.getEncoder();
     private CANSparkMax m_shooter2 = new CANSparkMax(ShooterConstants.kShooter2Port, MotorType.kBrushless);
@@ -31,6 +32,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooterEncoder.setPosition(0);
         m_shooterEncoder.setPositionConversionFactor(1);
         m_shooterEncoder.setVelocityConversionFactor(1);
+        m_angle.set(0);
     }
      
     /**
@@ -49,6 +51,10 @@ public class ShooterSubsystem extends SubsystemBase {
         else
         m_shooter.set(0);
 
+    }
+
+    public void changeAngle(double value){
+        m_angle.set(value);
     }
 
     public void speedUp(){

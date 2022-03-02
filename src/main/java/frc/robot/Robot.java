@@ -134,6 +134,8 @@ public class Robot extends TimedRobot {
     //update PID's
     m_robotContainer.m_shooter.updatePid();
     m_robotContainer.m_lift.updatePid();
+    m_robotContainer.m_turret.rotate(-m_robotContainer.m_camera.getTurnSpeed());
+    m_robotContainer.m_shooter.changeAngle(m_robotContainer.m_joystick1.leftTrigger()*0.7);
   }
 
   @Override

@@ -29,6 +29,14 @@ public class Joystick {
         return new XboxController(m_port).getRawAxis(JoystickConstants.kYStick2);
     }
 
+    public double leftTrigger(){
+        return new XboxController(m_port).getRawAxis(JoystickConstants.kLeftTrigger);
+    }
+
+    public double rightTrigger(){
+        return new XboxController(m_port).getRawAxis(JoystickConstants.kRightTrigger);
+    }
+
     public JoystickButton a(){
         return new JoystickButton(new XboxController(m_port), 1);
     }

@@ -26,6 +26,7 @@ import frc.robot.Constants.LiftConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.AlignToGoal;
+import frc.robot.commands.AngleCommand;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
@@ -83,6 +84,9 @@ public class RobotContainer {
   private final TurretCommand m_turretLeft = new TurretCommand(m_turret, TurretConstants.kTurretSpeed);
   private final TurretCommand m_turretRight = new TurretCommand(m_turret, -TurretConstants.kTurretSpeed);
   private final TurretCommand m_turretStop = new TurretCommand(m_turret, 0);
+
+  private final AngleCommand m_angleUp = new AngleCommand(m_shooter, m_camera, 0.1);
+  private final AngleCommand m_angleDown = new AngleCommand(m_shooter, m_camera, -0.1);
 
   private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
   private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);
@@ -187,6 +191,7 @@ public class RobotContainer {
     m_joystick1.dpadLeft()
       .whenPressed(m_turretLeft)
       .whenReleased(m_turretStop);
+
   }
 
   /**
@@ -243,6 +248,7 @@ public class RobotContainer {
     m_joystick1.dpadLeft()
       .whenPressed(m_turretLeft)
       .whenReleased(m_turretStop);
+
   }
 
 
