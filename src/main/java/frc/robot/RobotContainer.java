@@ -77,6 +77,8 @@ public class RobotContainer {
   private final IntakeCommand m_runIntake = new IntakeCommand(m_intake, IntakeConstants.kIntakeSpeed);
   private final IntakeCommand m_stopIntake = new IntakeCommand(m_intake, 0);
 
+  private final IntakeCommand m_backIntake = new IntakeCommand(m_intake, -IntakeConstants.kIntakeSpeed);
+
   private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_camera, ShooterConstants.shooterSpeed);
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_camera, 0);
 
@@ -99,7 +101,6 @@ public class RobotContainer {
   private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime);
   private final DropIntake m_holdIntake = new DropIntake(m_intake, 0, 0);
 
-  //private final LiftCommand m_liftStop = new LiftCommand(m_lift, 0);
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
   private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
 
@@ -147,8 +148,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_joystick1.a()
-      .whileHeld(m_runConveyor)
-      .whenReleased(m_stopConveyor);   
+      .whileHeld(m_backIntake);   
     
     m_joystick1.x()
       .whenPressed(m_runShooter);
@@ -169,19 +169,14 @@ public class RobotContainer {
       .whileHeld(m_runConveyor)
         .whenReleased(m_stopConveyor);
 
-
     m_joystick1.back()
-      .whileHeld(m_runFeeder)
-      .whenReleased(m_stopFeeder);
-
-    m_joystick1.start()
       .whenPressed(m_dropIntake)
       .whenReleased(m_holdIntake);
 
-    m_joystick1.leftStick()
+    m_joystick1.start()
       .whenPressed(m_raiseIntake)
       .whenReleased(m_holdIntake);
-
+      
     m_joystick1.dpadUp()
       .whenPressed(m_liftUp);
     
