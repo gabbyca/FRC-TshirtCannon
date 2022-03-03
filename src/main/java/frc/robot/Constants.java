@@ -75,7 +75,7 @@ public class Constants {
 
     public static final class ConveyorConstants{
         public static final int kConveyorPort = 1;
-        public static final double kConveyorSpeed = 0.8;
+        public static final double kConveyorSpeed = 1;
     }
 
     public static final class FeederConstants{
