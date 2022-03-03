@@ -161,6 +161,20 @@ public class Constants {
         public static final int sonar1 = 0;
         public static final int sonar2 = 1;
     }
+
+    public static final class BlinkinConstants{
+        public static final int kBlinkinPort = 0;
+
+        //colors
+        public static final double kRed = 0.61;
+        public static final double kOrange = 0.65;
+        public static final double kYellow = 0.69;
+        public static final double kGreen = 0.77;
+        public static final double kBlue = 0.87;
+        public static final double kViolet = 0.91;
+        public static final double kWhite = 0.93;
+        public static final double kBlack = 0.99;
+    }
     public static final class AutoConstants {
         public static final double kAutoShootPower = -0.9;
         public static final double kAutoChargeUpTime = 2;

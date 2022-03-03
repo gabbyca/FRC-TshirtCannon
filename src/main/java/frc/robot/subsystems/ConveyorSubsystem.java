@@ -28,6 +28,10 @@ public class ConveyorSubsystem extends SubsystemBase {
         m_conveyor.set(speed);
     }
 
+    public void stop(){
+        convey(0);
+    }
+
     public double getPose(){
         return m_conveyorEncoder.getPosition();
     }

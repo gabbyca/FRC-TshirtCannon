@@ -28,6 +28,10 @@ public class FeederSubsystem extends SubsystemBase {
         m_feeder.set(speed);
     }
 
+    public void stop(){
+        feed(0);
+    }
+
     public double getPose(){
         return m_feederEncoder.getPosition();
     }

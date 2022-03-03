@@ -26,6 +26,7 @@ import frc.robot.Constants.LiftConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.AlignToGoal;
+import frc.robot.commands.AutoShooterCommand;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
@@ -35,6 +36,7 @@ import frc.robot.commands.LiftCommand;
 import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.SpeedControl;
 import frc.robot.commands.TurretCommand;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
@@ -63,6 +65,7 @@ public class RobotContainer {
   final ConveyorSubsystem m_conveyor = new ConveyorSubsystem();
   final FeederSubsystem m_feeder = new FeederSubsystem();
   final TurretSubsystem m_turret = new TurretSubsystem();
+  final BlinkinSubsystem m_led = new BlinkinSubsystem();
   final LimelightSubsystem m_camera = new LimelightSubsystem();
   //commands
   private final FieldOrientedDrive m_FOD = new FieldOrientedDrive(m_drive, () -> m_joystick1.rightY(),
@@ -74,11 +77,13 @@ public class RobotContainer {
   private final IntakeCommand m_runIntake = new IntakeCommand(m_intake, IntakeConstants.kIntakeSpeed);
   private final IntakeCommand m_stopIntake = new IntakeCommand(m_intake, 0);
 
-  private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_intake, m_camera, ShooterConstants.shooterSpeed);
-  private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_intake, m_camera, 0);
+  private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_camera, ShooterConstants.shooterSpeed);
+  private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_camera, 0);
 
-  private final LiftCommand m_liftUp = new LiftCommand(m_lift, LiftConstants.topPose);
-  private final LiftCommand m_liftDown = new LiftCommand(m_lift, LiftConstants.bottomPose);
+  private final AutoShooterCommand m_autoShooter = new AutoShooterCommand(m_shooter, m_conveyor, m_feeder, m_led, m_camera, ShooterConstants.shooterSpeed);
+
+  private final LiftCommand m_liftUp = new LiftCommand(m_lift, m_led, LiftConstants.topPose);
+  private final LiftCommand m_liftDown = new LiftCommand(m_lift, m_led, LiftConstants.bottomPose);
 
   private final TurretCommand m_turretLeft = new TurretCommand(m_turret, TurretConstants.kTurretSpeed);
   private final TurretCommand m_turretRight = new TurretCommand(m_turret, -TurretConstants.kTurretSpeed);
@@ -95,8 +100,8 @@ public class RobotContainer {
   private final DropIntake m_holdIntake = new DropIntake(m_intake, 0, 0);
 
   //private final LiftCommand m_liftStop = new LiftCommand(m_lift, 0);
-  private final SpeedControl m_slowMode = new SpeedControl(0.5);
-  private final SpeedControl m_fastMode = new SpeedControl(1);
+  private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
+  private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
 
   //chooser
   private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
@@ -142,8 +147,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_joystick1.a()
-      .whenPressed(m_runIntake)
-      .whenReleased(m_stopIntake);
+      .whileHeld(m_runConveyor)
+      .whenReleased(m_stopConveyor);   
     
     m_joystick1.x()
       .whenPressed(m_runShooter);
@@ -152,15 +157,18 @@ public class RobotContainer {
       .whenPressed(m_stopShooter);
     
     m_joystick1.y()
-      .whenPressed(m_alignToGoal); 
+      .whenPressed(m_autoShooter); 
 
     m_joystick1.leftBumper()
       .whileHeld(m_fastMode)
       .whenReleased(m_slowMode);
 
     m_joystick1.rightBumper()
+      .whenPressed(m_runIntake)
+        .whenReleased(m_stopIntake)
       .whileHeld(m_runConveyor)
-      .whenReleased(m_stopConveyor);
+        .whenReleased(m_stopConveyor);
+
 
     m_joystick1.back()
       .whileHeld(m_runFeeder)

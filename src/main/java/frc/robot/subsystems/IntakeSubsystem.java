@@ -23,7 +23,7 @@ public class IntakeSubsystem extends SubsystemBase {
      * thats it its really simple
      */
     public IntakeSubsystem() {
-        m_intake.setIdleMode(IdleMode.kCoast);
+        m_intake.setIdleMode(IdleMode.kBrake);
         m_intakeDrop.setIdleMode(IdleMode.kBrake);
         m_count = 0;
     }
@@ -36,6 +36,10 @@ public class IntakeSubsystem extends SubsystemBase {
      */
     public void succ(double speed){
             m_intake.set(speed);
+    }
+
+    public void stop(){
+        succ(0);
     }
     
     public void drop(double speed){

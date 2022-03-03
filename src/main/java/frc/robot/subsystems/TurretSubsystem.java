@@ -24,6 +24,10 @@ public class TurretSubsystem extends SubsystemBase {
         m_turret.set(speed);
     }
 
+    public void stop(){
+        rotate(0);
+    }
+
     public double getPose(){
         return m_turretEncoder.getPosition();
     }

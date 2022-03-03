@@ -77,8 +77,8 @@ public class LimelightSubsystem extends SubsystemBase {
     public double getShooterSpeed() {
       if(this.hasTarget()){
         // try to drive forward until the target area reaches our desired area
-        double shooterSpeed = ((LimelightConstants.DESIRED_TARGET_AREA - getTA()) + 0.2);
-        return -shooterSpeed;
+        double shooterSpeed = ((LimelightConstants.DESIRED_TARGET_AREA - getTA()));
+        return Math.abs(shooterSpeed);
       }
       return 0;
     }

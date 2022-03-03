@@ -46,6 +46,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
     }
 
+    public void stop(){
+        shoot(0);
+    }
+
     public void updatePid() {
         if(setpoint != 0)
             m_shooter.setVoltage(m_pid.calculate(this.getVelocity()) + ShooterConstants.kF);
