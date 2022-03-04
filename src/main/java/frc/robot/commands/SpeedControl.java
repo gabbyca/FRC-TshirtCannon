@@ -9,6 +9,7 @@ public class SpeedControl extends CommandBase {
     private final double m_speed;
 
     public SpeedControl(BlinkinSubsystem led, double speed) {
+        m_led = led;
         m_speed = speed;
         addRequirements(m_led);
     }

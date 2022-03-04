@@ -131,11 +131,16 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Element Y", m_robotContainer.m_camera.getTY());
     SmartDashboard.putNumber("Lift Pose", m_robotContainer.m_lift.getPose());
 
+    if (m_robotContainer.m_camera.alignedToGoal())
+      m_robotContainer.m_led.violet();
+    else
+      m_robotContainer.m_led.red();
+
     //update PID's
     m_robotContainer.m_shooter.updatePid();
     m_robotContainer.m_lift.updatePid();
     m_robotContainer.m_turret.rotate(-m_robotContainer.m_camera.getTurnSpeed());
-    m_robotContainer.m_shooter.changeAngle(m_robotContainer.m_joystick1.leftTrigger());
+    m_robotContainer.m_shooter.changeAngle(0);
   }
 
   @Override

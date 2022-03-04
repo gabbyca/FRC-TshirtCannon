@@ -5,6 +5,7 @@ import frc.robot.Robot;
 import frc.robot.Constants.BlinkinConstants;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.FeederConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
@@ -32,25 +33,23 @@ public class AutoShooterCommand extends CommandBase {
 
     @Override
     public void execute() {
+        m_shooter.shoot(ShooterConstants.shooterSpeed);
         m_led.green();
         m_shooter.shoot(m_speed * m_camera.getShooterSpeed());
-        m_shooter.speedUp();
         m_feeder.feed(FeederConstants.kFeederSpeed);
         Robot.wait(500);
         m_conveyor.convey(ConveyorConstants.kConveyorSpeed);
         Robot.wait(500);
         m_conveyor.stop();
         Robot.wait(1000);
-        m_led.color(BlinkinConstants.kYellow);
-        m_shooter.speedUp();
-        Robot.wait(500);
-        m_conveyor.convey(ConveyorConstants.kConveyorSpeed);
-        Robot.wait(2000);
-        m_conveyor.stop();
-        Robot.wait(1000);
         m_feeder.stop();
-        m_shooter.stop();
         m_led.red();
+        m_shooter.shoot(ShooterConstants.shooterSpeed);
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
     }
 
 }

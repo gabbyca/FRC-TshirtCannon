@@ -34,6 +34,7 @@ import frc.robot.commands.FieldOrientedDrive;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LiftCommand;
 import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.SpeedControl;
 import frc.robot.commands.TurretCommand;
 import frc.robot.subsystems.BlinkinSubsystem;
@@ -94,8 +95,12 @@ public class RobotContainer {
   private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
   private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);
 
+  private final ConveyorCommand m_backConveyor = new ConveyorCommand(m_conveyor, -ConveyorConstants.kConveyorSpeed);
+
   private final FeederCommand m_runFeeder = new FeederCommand(m_feeder, FeederConstants.kFeederSpeed);
   private final FeederCommand m_stopFeeder = new FeederCommand(m_feeder, 0);
+
+  private final FeederCommand m_backFeeder = new FeederCommand(m_feeder, -FeederConstants.kFeederSpeed);
 
   private final DropIntake m_raiseIntake = new DropIntake(m_intake, -IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime);
   private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime);
@@ -148,7 +153,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     m_joystick1.a()
-      .whileHeld(m_backIntake);   
+        .whileHeld(m_backIntake)
+        .whenReleased(m_stopIntake)
+        .whileHeld(m_backConveyor)
+        .whenReleased(m_stopConveyor)
+        .whileHeld(m_backFeeder)
+        .whenReleased(m_stopFeeder);   
     
     m_joystick1.x()
       .whenPressed(m_runShooter);
@@ -278,6 +288,7 @@ public class RobotContainer {
             m_drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
             m_drive);
     // An ExampleCommand will run in autonomous
-    return mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0));
+    return null;
+    //mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0));
   }
 }

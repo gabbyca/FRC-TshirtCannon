@@ -18,6 +18,8 @@ public class LiftSubsystem extends SubsystemBase {
     private CANSparkMax m_lift2 = new CANSparkMax(LiftConstants.kLift2Port, MotorType.kBrushed);
     @Config
     private PIDController m_pid = new PIDController(LiftConstants.kP, LiftConstants.kI, LiftConstants.kD);
+
+    private double setPoint = 0;
     
 
     public LiftSubsystem() { 
@@ -36,10 +38,16 @@ public class LiftSubsystem extends SubsystemBase {
      */
     public void moveLift(double pose) {
         m_pid.setSetpoint(pose);
+        setPoint = pose;
     }
 
     public void updatePid() {
-        m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower, LiftConstants.kMaxLiftPower));
+        if (setPoint == LiftConstants.topPose)
+            m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower*0.5,
+                    LiftConstants.kMaxLiftPower*0.5));
+        else
+            m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower,
+            LiftConstants.kMaxLiftPower));
     }
 
     public double getPose(){
