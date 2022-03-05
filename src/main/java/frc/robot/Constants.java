@@ -90,7 +90,7 @@ public class Constants {
         public static final double kIdealLiftSpeed = -0.25;
 
         public static final int bottomPose = 0; //bottom limit
-        public static final int topPose = 128; //top limit
+        public static final int topPose = 138; //top limit
 
         public static final double liftSpeed = 100;
 

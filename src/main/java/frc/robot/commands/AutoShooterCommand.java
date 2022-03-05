@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.Constants.BlinkinConstants;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.FeederConstants;
 import frc.robot.Constants.ShooterConstants;
@@ -33,16 +32,15 @@ public class AutoShooterCommand extends CommandBase {
 
     @Override
     public void execute() {
-        m_shooter.shoot(ShooterConstants.shooterSpeed);
+        m_shooter.shoot(m_speed);
         m_led.green();
-        m_shooter.shoot(m_speed * m_camera.getShooterSpeed());
         m_feeder.feed(FeederConstants.kFeederSpeed);
         Robot.wait(500);
         m_conveyor.convey(ConveyorConstants.kConveyorSpeed);
         Robot.wait(500);
-        m_conveyor.stop();
         Robot.wait(1000);
         m_feeder.stop();
+        m_conveyor.stop();
         m_led.red();
         m_shooter.shoot(ShooterConstants.shooterSpeed);
     }

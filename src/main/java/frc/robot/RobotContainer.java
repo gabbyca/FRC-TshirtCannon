@@ -288,7 +288,7 @@ public class RobotContainer {
             m_drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
             m_drive);
     // An ExampleCommand will run in autonomous
-    return null;
+    return new SimpleAuto(m_drive);
     //mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0));
   }
 }
