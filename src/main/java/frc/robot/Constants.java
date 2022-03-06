@@ -90,7 +90,7 @@ public class Constants {
         public static final double kIdealLiftSpeed = -0.25;
 
         public static final int bottomPose = 0; //bottom limit
-        public static final int topPose = 138; //top limit
+        public static final int topPose = 150; //top limit
 
         public static final double liftSpeed = 100;
 
@@ -98,7 +98,7 @@ public class Constants {
         public static final double kI = 0;
         public static final double kD = 0;
 
-        public static final double kMaxLiftPower = 0.6;
+        public static final double kMaxLiftPower = 0.8;
     }
 
     public static final class TurretConstants{
@@ -116,7 +116,7 @@ public class Constants {
         public static final double kIdealShotSpeed = 0.5; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
-        public static final double shooterSpeed = 1400;
+        public static final double shooterSpeed = 1400; 
 
         public static final double kS = 0; //0.052824
         public static final double kV = 0; //0.12603

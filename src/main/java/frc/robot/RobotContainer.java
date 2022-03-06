@@ -83,7 +83,7 @@ public class RobotContainer {
   private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_camera, ShooterConstants.shooterSpeed);
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_camera, 0);
 
-  private final AutoShooterCommand m_autoShooter = new AutoShooterCommand(m_shooter, m_conveyor, m_feeder, m_led, m_camera, ShooterConstants.shooterSpeed);
+  private final AutoShooterCommand m_autoShooter = new AutoShooterCommand(m_shooter, m_conveyor, m_feeder, m_led, m_camera);
 
   private final LiftCommand m_liftUp = new LiftCommand(m_lift, m_led, LiftConstants.topPose);
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, m_led, LiftConstants.bottomPose);
@@ -288,7 +288,7 @@ public class RobotContainer {
             m_drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
             m_drive);
     // An ExampleCommand will run in autonomous
-    return new SimpleAuto(m_drive);
+    return new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder);
     //mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0));
   }
 }
