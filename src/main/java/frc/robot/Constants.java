@@ -6,6 +6,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import io.github.oblarg.oblog.annotations.Config;
 
 public class Constants {
     public static final class DriveConstants{
@@ -104,7 +105,9 @@ public class Constants {
     public static final class TurretConstants{
         public static final int kTurretPort = 12;
 
-        public static final double kTurretSpeed = 0.3;
+        public static final double kTurretLimit = 11;
+
+        public static final double kTurretSpeed = 0.75;
     }
 
     public static final class ShooterConstants {
@@ -151,9 +154,12 @@ public class Constants {
 
         public static final double kP = 0.005;
 
-        public final static double STEER_K = 0.02; // how hard to turn toward the target
-        public final static double DRIVE_K = 0.1; // how hard to drive fwd toward the target
-        public final static double DESIRED_TARGET_AREA = 3.0; // Area of the target when the robot reaches the wall
+        @Config
+        public final static double STEER_K = 0.05; // how hard to turn turret
+        @Config
+        public final static double SHOOTER_K = 1; // change power of shooter to reach target
+        public final static double SHOOTER_F = 1;
+        public final static double DESIRED_TARGET_AREA = 0.6; // Area of the target when the robot reaches the wall
         public final static double MAX_DRIVE = 0.6; // Simple speed limit so we don't drive too fast
     }
 

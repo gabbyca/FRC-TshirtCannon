@@ -88,9 +88,9 @@ public class RobotContainer {
   private final LiftCommand m_liftUp = new LiftCommand(m_lift, m_led, LiftConstants.topPose);
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, m_led, LiftConstants.bottomPose);
 
-  private final TurretCommand m_turretLeft = new TurretCommand(m_turret, TurretConstants.kTurretSpeed);
-  private final TurretCommand m_turretRight = new TurretCommand(m_turret, -TurretConstants.kTurretSpeed);
-  private final TurretCommand m_turretStop = new TurretCommand(m_turret, 0);
+  private final TurretCommand m_turretLeft = new TurretCommand(m_turret, m_camera, TurretConstants.kTurretSpeed);
+  private final TurretCommand m_turretRight = new TurretCommand(m_turret, m_camera, -TurretConstants.kTurretSpeed);
+  private final TurretCommand m_turretStop = new TurretCommand(m_turret, m_camera, 0);
 
   private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
   private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);
@@ -109,6 +109,8 @@ public class RobotContainer {
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
   private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
 
+  private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret, m_camera);
+
   //chooser
   private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
   private SendableChooser<Command> driveChooser = new SendableChooser<Command>();
@@ -125,7 +127,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //sets up our auto chooser(see the classes for details)
-    //autonomousChooser.setDefaultOption("Trajectory", );
+    autonomousChooser.setDefaultOption("2 Ball Auto", m_twoBallAuto);
     //autonomousChooser.addOption("Shoot Left Of Target", a_autoDriveToLineAndShootLeft);
     //sets up drive chooser with the option between FOD and default
     driveChooser.setDefaultOption("Field Oriented Drive", m_FOD);
@@ -138,6 +140,7 @@ public class RobotContainer {
     
     //sets the drive to what it should be
     m_drive.setDefaultCommand(driveChooser.getSelected());
+
 
     //guess
     SmartDashboard.putNumber("NAVX Angle", m_drive.getHeading());
@@ -167,7 +170,10 @@ public class RobotContainer {
       .whenPressed(m_stopShooter);
     
     m_joystick1.y()
-      .whenPressed(m_autoShooter); 
+        .whenPressed(m_runFeeder)
+        .whenPressed(m_runConveyor)
+        .whenReleased(m_stopFeeder)
+        .whenReleased(m_stopConveyor); 
 
     m_joystick1.leftBumper()
       .whileHeld(m_fastMode)
@@ -288,7 +294,7 @@ public class RobotContainer {
             m_drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
             m_drive);
     // An ExampleCommand will run in autonomous
-    return new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder);
+    return autonomousChooser.getSelected();
     //mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0));
   }
 }

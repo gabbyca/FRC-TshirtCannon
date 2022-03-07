@@ -15,13 +15,27 @@ public class TurretSubsystem extends SubsystemBase {
 
     public TurretSubsystem() { 
         m_turretEncoder.setPosition(0);
-        m_turret.setInverted(false);
+        m_turret.setInverted(true);
+        m_turretEncoder.setInverted(true);
         m_turret.setIdleMode(IdleMode.kBrake);
     }
      
 
     public void rotate(double speed) {
-        m_turret.set(speed);
+        if(getPose() > -TurretConstants.kTurretLimit && getPose() < TurretConstants.kTurretLimit) //within limits
+            m_turret.set(speed);
+        
+        else if (getPose() < -TurretConstants.kTurretLimit) { //crossed right limit
+            if (speed > 0)
+                speed = 0;
+            m_turret.set(speed);
+        }
+        
+        else{
+            if (speed < 0)
+            speed = 0;
+            m_turret.set(speed);
+        }
     }
 
     public void stop(){

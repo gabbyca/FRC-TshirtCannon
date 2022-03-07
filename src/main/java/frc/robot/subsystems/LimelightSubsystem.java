@@ -58,7 +58,7 @@ public class LimelightSubsystem extends SubsystemBase {
     public double getForwardSpeed() {
       if(this.hasTarget()){
         // try to drive forward until the target area reaches our desired area
-        double forwardSpeed = (LimelightConstants.DESIRED_TARGET_AREA - getTA()) * LimelightConstants.DRIVE_K;
+        double forwardSpeed = (LimelightConstants.DESIRED_TARGET_AREA - getTA()) * LimelightConstants.SHOOTER_K;
 
         // don't let the robot drive too fast into the goal
         if (forwardSpeed > LimelightConstants.MAX_DRIVE)
@@ -77,10 +77,10 @@ public class LimelightSubsystem extends SubsystemBase {
     public double getShooterSpeed() {
       if(this.hasTarget()){
         // try to drive forward until the target area reaches our desired area
-        double shooterSpeed = ((LimelightConstants.DESIRED_TARGET_AREA - getTA()));
+        double shooterSpeed = LimelightConstants.SHOOTER_F + ((LimelightConstants.DESIRED_TARGET_AREA - getTA()) * LimelightConstants.SHOOTER_K);
         return Math.abs(shooterSpeed);
       }
-      return 0;
+      return 1;
     }
 
     /**
@@ -91,7 +91,7 @@ public class LimelightSubsystem extends SubsystemBase {
       if(this.hasTarget()){
       // Start with proportional steering
         double turnSpeed = getTX() * LimelightConstants.STEER_K;
-        return turnSpeed;
+        return -turnSpeed;
       }
       return 0;
     }
