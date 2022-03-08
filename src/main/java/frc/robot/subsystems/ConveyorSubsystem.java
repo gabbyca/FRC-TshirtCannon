@@ -13,12 +13,17 @@ public class ConveyorSubsystem extends SubsystemBase {
     private static RelativeEncoder m_conveyorEncoder = m_conveyor.getEncoder(Type.kQuadrature, 2048);
 
     
-    public ConveyorSubsystem() { 
+    public ConveyorSubsystem() {
         m_conveyorEncoder.setPosition(0);
         //liftEncoder.setInverted(true);
         //conveyorEncoder.setPositionConversionFactor(10);
         m_conveyor.setInverted(false);
         m_conveyor.setIdleMode(IdleMode.kBrake);
+    }
+    
+    @Override
+    public void periodic() {
+
     }
      
     /**

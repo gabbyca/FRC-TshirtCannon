@@ -17,28 +17,36 @@ public class Constants {
         public static final int kBackLeftWheelPort = 6;
         public static final int kBackRightWheelPort = 4;
 
+        
+        public static final double metersPerRotation = 0.4787787204060999;
+
+        public static final double gearRatio = 10.71;
+
+        public static final double encoderConversionFactor = metersPerRotation / gearRatio;
+
+        public static final double encoderVeloConversionFactor = metersPerRotation / gearRatio / 60;
         //drivetrain stuff
         public static double speed = 0.5; //speed control 
 
-        public static double ks = 0.10049;
-        public static double kv = 2.5175;
-        public static double ka = 0.46019;
+        public static double ks = 0.079775;
+        public static double kv = 2.9146;
+        public static double ka = 0.65184;
         public static final double kTrackWidth = 0.585; //23 in
         // Distance between centers of right and left wheels on robot
         public static final double kWheelBase = 0.52; //20.5 in
         // Distance between centers of front and back wheels on robot
         
         // Example value only - as above, this must be tuned for your drive!
-        public static final double kPDriveVel = 0.0017676;
+        public static final double kPDriveVel = 0.00028512;
 
-        public static final double kMaxSpeedMetersPerSecond = 3;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxSpeedMetersPerSecond = 1;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 1;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     
-        public static final double kPXController = 0.0017676;
-        public static final double kPYController = 0.0017676;
-        public static final double kPThetaController = 0.0017676;
+        public static final double kPXController = 0.00028512;
+        public static final double kPYController = 0.00028512;
+        public static final double kPThetaController = 0.00028512;
 
         public static final MecanumDriveKinematics kDriveKinematics =
         new MecanumDriveKinematics(

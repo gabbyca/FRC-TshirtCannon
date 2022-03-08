@@ -28,6 +28,11 @@ public class IntakeSubsystem extends SubsystemBase {
         m_count = 0;
     }
     
+    @Override
+    public void periodic() {
+
+    }
+    
     /**
      * will i keep the name as succ? probably can you change it? no.
      * 

@@ -8,8 +8,13 @@ public class BlinkinSubsystem extends SubsystemBase {
     private static Spark m_led = new Spark(BlinkinConstants.kBlinkinPort);
 
     
-    public BlinkinSubsystem() { 
+    public BlinkinSubsystem() {
         red();
+    }
+    
+    @Override
+    public void periodic() {
+
     }
      
     /**

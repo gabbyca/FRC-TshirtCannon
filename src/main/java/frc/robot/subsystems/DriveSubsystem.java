@@ -4,10 +4,13 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SerialPort;
 
@@ -38,23 +41,56 @@ public class DriveSubsystem extends SubsystemBase {
    // Odometry class for tracking robot pose
   private final MecanumDriveOdometry m_odometry = new MecanumDriveOdometry(m_kinematics, navx.getRotation2d());
 
-  private MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_backLeftMotor, m_frontRightMotor, m_backRightMotor);
+  private MecanumDrive m_drive = new MecanumDrive(m_frontLeftMotor, m_backLeftMotor, m_frontRightMotor,
+      m_backRightMotor);
+  
+  NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
+  NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
+  NetworkTableEntry m_headingEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Heading");
   /**
    * Creates a new DriveSubsystem.
    */
   public DriveSubsystem() {
-    
+
     m_drive.setSafetyEnabled(false);
     m_frontLeftMotor.setInverted(false);
     m_frontRightMotor.setInverted(true);
     m_backLeftMotor.setInverted(false);
     m_backRightMotor.setInverted(true);
-    m_frontLeftMotor.setIdleMode(IdleMode.kBrake);
-    m_frontRightMotor.setIdleMode(IdleMode.kBrake);
-    m_backLeftMotor.setIdleMode(IdleMode.kBrake);
-    m_backRightMotor.setIdleMode(IdleMode.kBrake);
 
+    motorBrake();
+
+    m_odometry.resetPosition(new Pose2d(0,0, new Rotation2d(0)), new Rotation2d(0));
+
+    setEncoders();
+    setEncoderVelo();
     SmartDashboard.putData("Field", m_field);
+  }
+
+  @Override
+  public void periodic() {
+    // Update the odometry in the periodic block
+    m_odometry.update(navx.getRotation2d(), getCurrentWheelSpeeds());
+    m_field.setRobotPose(getPose());
+
+    var translation = getPose().getTranslation();
+    m_xEntry.setNumber(translation.getX());
+    m_yEntry.setNumber(translation.getY());
+    m_headingEntry.setNumber(m_odometry.getPoseMeters().getRotation().getDegrees());
+  }
+
+  public void setEncoders() {
+    m_frontLeftEncoder.setPositionConversionFactor(DriveConstants.encoderConversionFactor);
+    m_frontRightEncoder.setPositionConversionFactor(DriveConstants.encoderConversionFactor);
+    m_backLeftEncoder.setPositionConversionFactor(DriveConstants.encoderConversionFactor);
+    m_backRightEncoder.setPositionConversionFactor(DriveConstants.encoderConversionFactor);
+  }
+
+  public void setEncoderVelo() {
+    m_frontLeftEncoder.setVelocityConversionFactor(DriveConstants.encoderVeloConversionFactor);
+    m_frontRightEncoder.setVelocityConversionFactor(DriveConstants.encoderVeloConversionFactor);
+    m_backLeftEncoder.setVelocityConversionFactor(DriveConstants.encoderVeloConversionFactor);
+    m_backRightEncoder.setVelocityConversionFactor(DriveConstants.encoderVeloConversionFactor);
   }
 
   public void motorBrake(){
@@ -93,12 +129,6 @@ public class DriveSubsystem extends SubsystemBase {
       m_drive.driveCartesian(-x, y, c, theta);
   }
   
-  @Override
-  public void periodic() {
-    // Update the odometry in the periodic block
-    m_odometry.update(navx.getRotation2d(), getCurrentWheelSpeeds());
-    m_field.setRobotPose(m_odometry.getPoseMeters());
-  }
 
   /**
    * Returns the currently-estimated pose of the robot.

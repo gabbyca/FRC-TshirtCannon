@@ -13,14 +13,14 @@ import frc.robot.subsystems.DriveSubsystem;
  * This drives in relation to the field, not the robot itsef
  */
 
-public class FieldOrientedDrive extends CommandBase {
+public class ArcadeDrive extends CommandBase {
     private final DriveSubsystem m_drive;
     private final DoubleSupplier m_x;
     private final DoubleSupplier m_y;
     private final DoubleSupplier m_c;
     
 
-    public FieldOrientedDrive(DriveSubsystem subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier c)
+    public ArcadeDrive(DriveSubsystem subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier c)
     {
         m_drive = subsystem;
         m_x = x;

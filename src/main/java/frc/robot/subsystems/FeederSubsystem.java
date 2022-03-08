@@ -13,7 +13,7 @@ public class FeederSubsystem extends SubsystemBase {
     private static RelativeEncoder m_feederEncoder = m_feeder.getEncoder(Type.kQuadrature, 2048);
 
     
-    public FeederSubsystem() { 
+    public FeederSubsystem() {
         m_feederEncoder.setPosition(0);
         //liftEncoder.setInverted(true);
         //conveyorEncoder.setPositionConversionFactor(10);
@@ -21,6 +21,11 @@ public class FeederSubsystem extends SubsystemBase {
         m_feeder.setIdleMode(IdleMode.kBrake);
     }
      
+    @Override
+    public void periodic() {
+
+    }
+    
     /**
      * @param speed = speed to move at
      */

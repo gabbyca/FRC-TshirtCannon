@@ -21,6 +21,11 @@ public class TurretSubsystem extends SubsystemBase {
     }
      
 
+    @Override
+    public void periodic() {
+
+    }
+    
     public void rotate(double speed) {
         if(getPose() > -TurretConstants.kTurretLimit && getPose() < TurretConstants.kTurretLimit) //within limits
             m_turret.set(speed);

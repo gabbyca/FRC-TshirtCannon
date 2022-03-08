@@ -30,7 +30,7 @@ import frc.robot.commands.AutoShooterCommand;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
-import frc.robot.commands.FieldOrientedDrive;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LiftCommand;
 import frc.robot.commands.ShooterCommand;
@@ -69,7 +69,7 @@ public class RobotContainer {
   final BlinkinSubsystem m_led = new BlinkinSubsystem();
   final LimelightSubsystem m_camera = new LimelightSubsystem();
   //commands
-  private final FieldOrientedDrive m_FOD = new FieldOrientedDrive(m_drive, () -> m_joystick1.rightY(),
+  private final ArcadeDrive m_ArcadeDrive = new ArcadeDrive(m_drive, () -> m_joystick1.rightY(),
    () -> m_joystick1.leftX(),
     () -> m_joystick1.rightX());
   
@@ -109,7 +109,28 @@ public class RobotContainer {
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
   private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
 
-  private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret, m_camera);
+  private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret,
+      m_camera);
+  
+  MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
+      Trajectories.exampleTrajectory,
+      m_drive::getPose,
+      DriveConstants.kFeedforward,
+      DriveConstants.kDriveKinematics,
+      // Position contollers
+      DriveConstants.xController,
+      DriveConstants.yController,
+      DriveConstants.thetaController,
+      // Needed for normalizing wheel speeds
+      DriveConstants.kMaxSpeedMetersPerSecond,
+      // Velocity PID's
+      DriveConstants.driveController,
+      DriveConstants.driveController,
+      DriveConstants.driveController,
+      DriveConstants.driveController,
+      m_drive::getCurrentWheelSpeeds,
+      m_drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+      m_drive);
 
   //chooser
   private SendableChooser<Command> autonomousChooser = new SendableChooser<Command>();
@@ -128,9 +149,9 @@ public class RobotContainer {
   public RobotContainer() {
     //sets up our auto chooser(see the classes for details)
     autonomousChooser.setDefaultOption("2 Ball Auto", m_twoBallAuto);
-    //autonomousChooser.addOption("Shoot Left Of Target", a_autoDriveToLineAndShootLeft);
+    autonomousChooser.addOption("Trajectory Test", mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0)));
     //sets up drive chooser with the option between FOD and default
-    driveChooser.setDefaultOption("Field Oriented Drive", m_FOD);
+    driveChooser.setDefaultOption("Arcade Drive", m_ArcadeDrive);
     //driveChooser.addOption("Default Drive", m_default);
     //publishes the choosers
     SmartDashboard.putData("Autonomous Mode", autonomousChooser);
@@ -273,26 +294,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    MecanumControllerCommand mecanumControllerCommand =
-        new MecanumControllerCommand(
-            Trajectories.exampleTrajectory,
-            m_drive::getPose,
-            DriveConstants.kFeedforward,
-            DriveConstants.kDriveKinematics,
-            // Position contollers
-            DriveConstants.xController,
-            DriveConstants.yController,
-            DriveConstants.thetaController,
-            // Needed for normalizing wheel speeds
-            DriveConstants.kMaxSpeedMetersPerSecond,
-            // Velocity PID's
-            DriveConstants.driveController,
-            DriveConstants.driveController,
-            DriveConstants.driveController,
-            DriveConstants.driveController,
-            m_drive::getCurrentWheelSpeeds,
-            m_drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-            m_drive);
+    
     // An ExampleCommand will run in autonomous
     return autonomousChooser.getSelected();
     //mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0));

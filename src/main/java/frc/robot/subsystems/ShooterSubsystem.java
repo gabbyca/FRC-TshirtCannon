@@ -24,6 +24,7 @@ public class ShooterSubsystem extends SubsystemBase {
         new SimpleMotorFeedforward(ShooterConstants.kS, ShooterConstants.kV, ShooterConstants.kA);
 
     public double setpoint = 0;
+
     public ShooterSubsystem() {
         m_shooter.setIdleMode(IdleMode.kCoast);
         m_shooter2.setIdleMode(IdleMode.kCoast);
@@ -36,6 +37,10 @@ public class ShooterSubsystem extends SubsystemBase {
         m_angle.set(0);
     }
      
+    @Override
+    public void periodic() {
+        updatePid();
+    }
     /**
      * @param speed = speed to shoot at
      */

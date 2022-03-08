@@ -6,9 +6,14 @@ import frc.robot.Constants.LimelightConstants;
 
 public class LimelightSubsystem extends SubsystemBase {
   
-    public LimelightSubsystem() {
+  public LimelightSubsystem() {
 
-    }
+  }
+    
+  @Override
+  public void periodic() {
+
+  }
     /**
     * This function returns whether the limelight has any valid targets (0 or 1)
     * @return Target status (0/1)

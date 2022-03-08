@@ -136,13 +136,6 @@ public class Robot extends TimedRobot {
       m_robotContainer.m_led.violet();
     else
       m_robotContainer.m_led.red();
-
-    //update PID's
-    m_robotContainer.m_shooter.updatePid();
-    m_robotContainer.m_lift.updatePid();
-    //m_robotContainer.m_turret.rotate(m_robotContainer.m_camera.getTurnSpeed());
-
-    m_robotContainer.m_shooter.changeAngle(0);
   }
 
   @Override

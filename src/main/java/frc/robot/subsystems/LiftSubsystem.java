@@ -22,7 +22,7 @@ public class LiftSubsystem extends SubsystemBase {
     private double setPoint = 0;
     
 
-    public LiftSubsystem() { 
+    public LiftSubsystem() {
         m_liftEncoder.setPosition(0);
         m_liftEncoder.setInverted(true);
         m_liftEncoder.setPositionConversionFactor(10);
@@ -33,6 +33,10 @@ public class LiftSubsystem extends SubsystemBase {
         m_pid.setSetpoint(0);
     }
      
+    @Override
+    public void periodic() {
+        updatePid();
+    }
     /**
      * @param speed = speed to move at
      */
