@@ -25,4 +25,8 @@ public class AngleCommand extends CommandBase{
         
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

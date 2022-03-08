@@ -17,4 +17,8 @@ public class ConveyorCommand extends CommandBase {
         m_conveyor.convey(m_speed);
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

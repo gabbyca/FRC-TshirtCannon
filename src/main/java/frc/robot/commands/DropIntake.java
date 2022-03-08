@@ -23,4 +23,8 @@ public class DropIntake extends CommandBase {
         m_intake.drop(0);
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

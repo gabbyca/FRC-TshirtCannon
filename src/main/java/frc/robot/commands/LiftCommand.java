@@ -18,12 +18,16 @@ public class LiftCommand extends CommandBase {
     }
     @Override
     public void execute() {
-        if(m_speed == LiftConstants.topPose)
+        if (m_speed == LiftConstants.topPose)
             m_led.blue();
         else
             m_led.red();
-            
+
         m_lift.moveLift(m_speed);
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

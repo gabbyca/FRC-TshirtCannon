@@ -17,4 +17,8 @@ public class IntakeCommand extends CommandBase {
         m_intake.succ(m_speed);
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

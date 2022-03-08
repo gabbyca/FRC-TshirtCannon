@@ -26,7 +26,6 @@ import frc.robot.Constants.LiftConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.commands.AlignToGoal;
-import frc.robot.commands.AutoShooterCommand;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
@@ -34,9 +33,12 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LiftCommand;
 import frc.robot.commands.ShooterCommand;
-import frc.robot.commands.SimpleAuto;
 import frc.robot.commands.SpeedControl;
 import frc.robot.commands.TurretCommand;
+import frc.robot.commands.Autonomous.CenterAuto;
+import frc.robot.commands.Autonomous.LeftAuto;
+import frc.robot.commands.Autonomous.RightAuto;
+import frc.robot.commands.Autonomous.SimpleAuto;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -45,6 +47,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TrajectorySubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 
 /**
@@ -68,6 +71,7 @@ public class RobotContainer {
   final TurretSubsystem m_turret = new TurretSubsystem();
   final BlinkinSubsystem m_led = new BlinkinSubsystem();
   final LimelightSubsystem m_camera = new LimelightSubsystem();
+  final TrajectorySubsystem m_trajectories = new TrajectorySubsystem();
   //commands
   private final ArcadeDrive m_ArcadeDrive = new ArcadeDrive(m_drive, () -> m_joystick1.rightY(),
    () -> m_joystick1.leftX(),
@@ -83,7 +87,7 @@ public class RobotContainer {
   private final ShooterCommand m_runShooter = new ShooterCommand(m_shooter, m_camera, ShooterConstants.shooterSpeed);
   private final ShooterCommand m_stopShooter = new ShooterCommand(m_shooter, m_camera, 0);
 
-  private final AutoShooterCommand m_autoShooter = new AutoShooterCommand(m_shooter, m_conveyor, m_feeder, m_led, m_camera);
+  //private final AutoShooterCommand m_autoShooter = new AutoShooterCommand(m_shooter, m_conveyor, m_feeder, m_led, m_camera);
 
   private final LiftCommand m_liftUp = new LiftCommand(m_lift, m_led, LiftConstants.topPose);
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, m_led, LiftConstants.bottomPose);
@@ -111,9 +115,16 @@ public class RobotContainer {
 
   private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret,
       m_camera);
+
+  private final LeftAuto m_leftAuto = new LeftAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_camera, m_led,
+      m_trajectories);
+  private final CenterAuto m_centerAuto = new CenterAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_camera, m_led,
+      m_trajectories);
+  private final RightAuto m_rightAuto = new RightAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_camera, m_led,
+      m_trajectories);
   
   MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
-      Trajectories.exampleTrajectory,
+      TrajectorySubsystem.exampleTrajectory,
       m_drive::getPose,
       DriveConstants.kFeedforward,
       DriveConstants.kDriveKinematics,
@@ -149,7 +160,11 @@ public class RobotContainer {
   public RobotContainer() {
     //sets up our auto chooser(see the classes for details)
     autonomousChooser.setDefaultOption("2 Ball Auto", m_twoBallAuto);
-    autonomousChooser.addOption("Trajectory Test", mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0)));
+    autonomousChooser.addOption("Trajectory Test",
+        mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0)));
+    autonomousChooser.addOption("Left Auto", m_leftAuto);
+    autonomousChooser.addOption("Center Auto", m_centerAuto);
+    autonomousChooser.addOption("Right Auto", m_rightAuto);
     //sets up drive chooser with the option between FOD and default
     driveChooser.setDefaultOption("Arcade Drive", m_ArcadeDrive);
     //driveChooser.addOption("Default Drive", m_default);

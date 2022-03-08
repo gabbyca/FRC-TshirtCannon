@@ -35,8 +35,7 @@ public class AutoShooterCommand extends CommandBase {
         m_feeder.feed(FeederConstants.kFeederSpeed);
         Robot.wait(500);
         m_conveyor.convey(ConveyorConstants.kConveyorSpeed);
-        Robot.wait(500);
-        Robot.wait(1000);
+        Robot.wait(2000);
         m_feeder.stop();
         m_conveyor.stop();
         m_led.red();

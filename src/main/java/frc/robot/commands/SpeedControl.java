@@ -23,4 +23,8 @@ public class SpeedControl extends CommandBase {
         DriveConstants.speed = m_speed;
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

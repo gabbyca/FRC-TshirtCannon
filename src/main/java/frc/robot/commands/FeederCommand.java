@@ -17,4 +17,8 @@ public class FeederCommand extends CommandBase {
         m_feeder.feed(m_speed);
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

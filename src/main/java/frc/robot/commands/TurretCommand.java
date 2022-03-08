@@ -20,4 +20,8 @@ public class TurretCommand extends CommandBase {
         m_turret.rotate(m_speed + m_camera.getTurnSpeed());
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

@@ -20,7 +20,11 @@ public class ShooterCommand extends CommandBase{
     public void execute() {
 
         m_shooter.shoot(m_speed); // *m_camera.getShooterSpeed()
-        
+
     }
     
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }
