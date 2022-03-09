@@ -20,32 +20,32 @@ public class TrajectorySubsystem extends SubsystemBase {
 
         // left
         private static Path LeftPickUpPath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Left Pick Up.wpilib.json");
+                        .resolve("paths/Left_Pick_Up.wpilib.json");
         
         private static Path LeftScorePath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Left Score.wpilib.json");
+                        .resolve("paths/Left_Score.wpilib.json");
         
 
         // center
         private static Path CenterPickUpPath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Center Pick Up.wpilib.json");
+                        .resolve("paths/Center_Pick_Up.wpilib.json");
         
         private static Path CenterScorePath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Center Score.wpilib.json");
+                        .resolve("paths/Center_Score.wpilib.json");
         
         private static Path CenterPickUpMorePath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Center Pick Up More.wpilib.json");
+                        .resolve("paths/Center_Pick_Up_More.wpilib.json");
         
         private static Path CenterScoreMorePath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Center Score More.wpilib.json");
+                        .resolve("paths/Center_Score_More.wpilib.json");
         
 
         // right
         private static Path RightPickUpPath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Right Pick Up.wpilib.json");
+                        .resolve("paths/Right_Pick_Up.wpilib.json");
         
         private static Path RightScorePath = Filesystem.getDeployDirectory().toPath()
-                        .resolve("paths/Right Score.wpilib.json");
+                        .resolve("paths/Right_Score.wpilib.json");
 
 
         private static TrajectoryConfig config = // create the config used for all trajectories

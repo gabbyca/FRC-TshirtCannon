@@ -50,8 +50,8 @@ public class LiftSubsystem extends SubsystemBase {
             m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower,
                     LiftConstants.kMaxLiftPower));
         else
-            m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower,
-            LiftConstants.kMaxLiftPower));
+            m_lift.set(MathUtil.clamp(m_pid.calculate(this.getPose()), -LiftConstants.kMaxLiftPower*0.5,
+            LiftConstants.kMaxLiftPower*0.5));
     }
 
     public double getPose(){

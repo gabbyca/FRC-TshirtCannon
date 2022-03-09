@@ -73,9 +73,9 @@ public class RobotContainer {
   final LimelightSubsystem m_camera = new LimelightSubsystem();
   final TrajectorySubsystem m_trajectories = new TrajectorySubsystem();
   //commands
-  private final ArcadeDrive m_ArcadeDrive = new ArcadeDrive(m_drive, () -> m_joystick1.rightY(),
-   () -> m_joystick1.leftX(),
-    () -> m_joystick1.rightX());
+  private final ArcadeDrive m_ArcadeDrive = new ArcadeDrive(m_drive, () -> m_joystick2.rightY(),
+   () -> m_joystick2.rightX(),
+    () -> m_joystick2.leftX());
   
   private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
 
@@ -211,7 +211,7 @@ public class RobotContainer {
         .whenReleased(m_stopFeeder)
         .whenReleased(m_stopConveyor); 
 
-    m_joystick1.leftBumper()
+    m_joystick2.leftBumper()
       .whileHeld(m_fastMode)
       .whenReleased(m_slowMode);
 

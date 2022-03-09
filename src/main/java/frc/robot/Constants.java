@@ -107,7 +107,7 @@ public class Constants {
         public static final double kI = 0;
         public static final double kD = 0;
 
-        public static final double kMaxLiftPower = 0.8;
+        public static final double kMaxLiftPower = 1;
     }
 
     public static final class TurretConstants{
@@ -149,7 +149,7 @@ public class Constants {
         public static final int kYStick2 = 5;
 
         public static final int kJoystick1Port = 0;
-        public static final int kJoystick2Port = 2;
+        public static final int kJoystick2Port = 1;
     }
 
     public static final class LimelightConstants {
