@@ -106,8 +106,8 @@ public class RobotContainer {
 
   private final FeederCommand m_backFeeder = new FeederCommand(m_feeder, -FeederConstants.kFeederSpeed);
 
-  private final DropIntake m_raiseIntake = new DropIntake(m_intake, -IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime);
-  private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime);
+  private final DropIntake m_raiseIntake = new DropIntake(m_intake, -IntakeConstants.kIntakeDropSpeed, 0);
+  private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed, 0);
   private final DropIntake m_holdIntake = new DropIntake(m_intake, 0, 0);
 
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);

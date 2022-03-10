@@ -17,7 +17,7 @@ public class ConveyorSubsystem extends SubsystemBase {
         m_conveyorEncoder.setPosition(0);
         //liftEncoder.setInverted(true);
         //conveyorEncoder.setPositionConversionFactor(10);
-        m_conveyor.setInverted(false);
+        m_conveyor.setInverted(true);
         m_conveyor.setIdleMode(IdleMode.kBrake);
     }
     
