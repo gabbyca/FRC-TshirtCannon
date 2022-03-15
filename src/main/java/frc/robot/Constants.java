@@ -115,7 +115,7 @@ public class Constants {
 
         public static final double kTurretLimit = 11;
 
-        public static final double kTurretSpeed = 0.75;
+        public static final double kTurretSpeed = 0.5;
     }
 
     public static final class ShooterConstants {
@@ -127,7 +127,8 @@ public class Constants {
         public static final double kIdealShotSpeed = 0.5; //ideal motor speed to run the shooter at
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
-        public static final double shooterSpeed = 1400; 
+        @Config
+        public static double shooterSpeed = 500; 
 
         public static final double kS = 0; //0.052824
         public static final double kV = 0; //0.12603

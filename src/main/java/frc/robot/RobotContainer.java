@@ -106,7 +106,7 @@ public class RobotContainer {
 
   private final FeederCommand m_backFeeder = new FeederCommand(m_feeder, -FeederConstants.kFeederSpeed);
 
-  private final DropIntake m_raiseIntake = new DropIntake(m_intake, -IntakeConstants.kIntakeDropSpeed, 0);
+  private final DropIntake m_raiseIntake = new DropIntake(m_intake, -1, 0);
   private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed, 0);
   private final DropIntake m_holdIntake = new DropIntake(m_intake, 0, 0);
 
@@ -176,6 +176,8 @@ public class RobotContainer {
     
     //sets the drive to what it should be
     m_drive.setDefaultCommand(driveChooser.getSelected());
+    m_turret.setDefaultCommand(m_turretStop);
+
 
 
     //guess

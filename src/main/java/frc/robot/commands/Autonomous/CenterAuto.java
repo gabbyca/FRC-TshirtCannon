@@ -9,6 +9,8 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AutoShooterCommand;
 import frc.robot.commands.ConveyorCommand;
+import frc.robot.commands.DropIntake;
+import frc.robot.commands.DropIntakeDelay;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.SetDrivePose;
@@ -32,6 +34,7 @@ public class CenterAuto extends SequentialCommandGroup {
             m_trajectories = trajectories;
             addCommands(
                         new SetDrivePose(drive, trajectories.getCenterPickUp()),
+                                new DropIntakeDelay(intake, IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime),
                             new IntakeCommand(intake, IntakeConstants.kIntakeSpeed),
                             new ConveyorCommand(conveyor, ConveyorConstants.kConveyorSpeed),
                             new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed),
