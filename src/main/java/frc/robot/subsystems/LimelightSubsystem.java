@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LimelightConstants;
-import frc.robot.Constants.ShooterConstants;
 
 public class LimelightSubsystem extends SubsystemBase {
   
@@ -83,8 +82,8 @@ public class LimelightSubsystem extends SubsystemBase {
     public double getShooterSpeed() {
       if(this.hasTarget()){
         // try to drive forward until the target area reaches our desired area
-        double shooterSpeed = ((LimelightConstants.DESIRED_TARGET_AREA - getTA()) * LimelightConstants.SHOOTER_K);
-        return shooterSpeed - 0.5;
+        double shooterSpeed = LimelightConstants.SHOOTER_F + ((LimelightConstants.DESIRED_TARGET_AREA - getTA()) * LimelightConstants.SHOOTER_K);
+        return shooterSpeed;
       }
       return 1;
     }
