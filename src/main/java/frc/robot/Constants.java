@@ -128,7 +128,7 @@ public class Constants {
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
         @Config
-        public static double shooterSpeed = 500; 
+        public static final double shooterSpeed = 1000; 
 
         public static final double kS = 0; //0.052824
         public static final double kV = 0; //0.12603
@@ -166,8 +166,8 @@ public class Constants {
         @Config
         public final static double STEER_K = 0.05; // how hard to turn turret
         @Config
-        public final static double SHOOTER_K = 1; // change power of shooter to reach target
-        public final static double SHOOTER_F = 1;
+        public final static double SHOOTER_K = 5; // change power of shooter to reach target
+        public final static double SHOOTER_F = 0;
         public final static double DESIRED_TARGET_AREA = 0.6; // Area of the target when the robot reaches the wall
         public final static double MAX_DRIVE = 0.6; // Simple speed limit so we don't drive too fast
     }
