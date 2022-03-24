@@ -30,16 +30,28 @@ public class AutoShooterCommand extends CommandBase {
 
     @Override
     public void execute() {
-        m_shooter.shoot(ShooterConstants.shooterSpeed);
+        m_shooter.shoot((ShooterConstants.shooterSpeed * m_camera.getShooterSpeed()));
+        for (int i = 0; i < 100; i++) { // 2 sec delay
+            m_shooter.updatePid();
+            Robot.wait(20);
+        }
         m_led.green();
         m_feeder.feed(FeederConstants.kFeederSpeed);
-        Robot.wait(500);
+        for (int i = 0; i < 100; i++) { // 2 sec delay
+            m_shooter.updatePid();
+            Robot.wait(20);
+        }
         m_conveyor.convey(ConveyorConstants.kConveyorSpeed);
-        Robot.wait(2000);
+        m_feeder.feed(FeederConstants.kFeederSpeed);
+        for (int i = 0; i < 100; i++) { // 2 sec delay
+            m_shooter.updatePid();
+            Robot.wait(20);
+        }
         m_feeder.stop();
         m_conveyor.stop();
         m_led.red();
-        m_shooter.shoot(ShooterConstants.shooterSpeed);
+        m_shooter.shoot(0);
+        m_shooter.updatePid();
     }
 
     @Override

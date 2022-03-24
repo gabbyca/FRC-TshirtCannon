@@ -96,7 +96,7 @@ public class RobotContainer {
   private final TurretCommand m_turretRight = new TurretCommand(m_turret, m_camera, -TurretConstants.kTurretSpeed);
   private final TurretCommand m_turretStop = new TurretCommand(m_turret, m_camera, 0);
 
-  private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed*0.5);
+  private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
   private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);
 
   private final ConveyorCommand m_backConveyor = new ConveyorCommand(m_conveyor, -ConveyorConstants.kConveyorSpeed);
@@ -179,7 +179,6 @@ public class RobotContainer {
     m_turret.setDefaultCommand(m_turretStop);
 
 
-
     //guess
     SmartDashboard.putNumber("NAVX Angle", m_drive.getHeading());
     
@@ -210,6 +209,7 @@ public class RobotContainer {
     m_joystick1.y()
         .whenPressed(m_runFeeder)
         .whenPressed(m_runConveyor)
+        .whileHeld(m_runShooter)
         .whenReleased(m_stopFeeder)
         .whenReleased(m_stopConveyor); 
 

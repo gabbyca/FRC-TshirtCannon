@@ -9,7 +9,6 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AutoShooterCommand;
 import frc.robot.commands.ConveyorCommand;
-import frc.robot.commands.DropIntake;
 import frc.robot.commands.DropIntakeDelay;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.IntakeCommand;
@@ -33,11 +32,13 @@ public class CenterAuto extends SequentialCommandGroup {
                     TrajectorySubsystem trajectories) {
             m_trajectories = trajectories;
             addCommands(
-                        new SetDrivePose(drive, trajectories.getCenterPickUp()),
-                                new DropIntakeDelay(intake, IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime),
+                            new SetDrivePose(drive, trajectories.getCenterPickUp()),
+                            new DropIntakeDelay(intake, IntakeConstants.kIntakeDropSpeed,
+                                            IntakeConstants.kIntakeDropTime),
                             new IntakeCommand(intake, IntakeConstants.kIntakeSpeed),
                             new ConveyorCommand(conveyor, ConveyorConstants.kConveyorSpeed),
-                            new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed),
+                            new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed
+                                            * camera.getShooterSpeed()),
                             new MecanumControllerCommand(
                                             trajectories.getCenterPickUp(),
                                             drive::getPose,
@@ -55,75 +56,128 @@ public class CenterAuto extends SequentialCommandGroup {
                                             DriveConstants.driveController,
                                             DriveConstants.driveController,
                                             drive::getCurrentWheelSpeeds,
-                                            drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+                                            drive::setDriveMotorControllersVolts, // Consumer for the output motor
+                                                                                  // voltages
                                             drive),
-                            new MecanumControllerCommand(
-                                            trajectories.getCenterScore(),
-                                            drive::getPose,
-                                            DriveConstants.kFeedforward,
-                                            DriveConstants.kDriveKinematics,
-                                            // Position contollers
-                                            DriveConstants.xController,
-                                            DriveConstants.yController,
-                                            DriveConstants.thetaController,
-                                            // Needed for normalizing wheel speeds
-                                            DriveConstants.kMaxSpeedMetersPerSecond,
-                                            // Velocity PID's
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            drive::getCurrentWheelSpeeds,
-                                            drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-                                            drive),
-                            new IntakeCommand(intake, 0),
+                            // new MecanumControllerCommand(
+                            // trajectories.getCenterScore(),
+                            // drive::getPose,
+                            // DriveConstants.kFeedforward,
+                            // DriveConstants.kDriveKinematics,
+                            // // Position contollers
+                            // DriveConstants.xController,
+                            // DriveConstants.yController,
+                            // DriveConstants.thetaController,
+                            // // Needed for normalizing wheel speeds
+                            // DriveConstants.kMaxSpeedMetersPerSecond,
+                            // // Velocity PID's
+                            // DriveConstants.driveController,
+                            // DriveConstants.driveController,
+                            // DriveConstants.driveController,
+                            // DriveConstants.driveController,
+                            // drive::getCurrentWheelSpeeds,
+                            // drive::setDriveMotorControllersVolts, // Consumer for the output motor
+                            // voltages
+                            // drive),
+                            new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed
+                                            * camera.getShooterSpeed()),
                             new AutoShooterCommand(shooter, conveyor, feeder, led, camera),
-                            new IntakeCommand(intake, IntakeConstants.kIntakeSpeed),
-                            new ConveyorCommand(conveyor, ConveyorConstants.kConveyorSpeed),
-                            new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed),
-                            new MecanumControllerCommand(
-                                            trajectories.getCenterPickUpMore(),
-                                            drive::getPose,
-                                            DriveConstants.kFeedforward,
-                                            DriveConstants.kDriveKinematics,
-                                            // Position contollers
-                                            DriveConstants.xController,
-                                            DriveConstants.yController,
-                                            DriveConstants.thetaController,
-                                            // Needed for normalizing wheel speeds
-                                            DriveConstants.kMaxSpeedMetersPerSecond,
-                                            // Velocity PID's
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            drive::getCurrentWheelSpeeds,
-                                            drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-                                            drive),
-                            new MecanumControllerCommand(
-                                            trajectories.getCenterScoreMore(),
-                                            drive::getPose,
-                                            DriveConstants.kFeedforward,
-                                            DriveConstants.kDriveKinematics,
-                                            // Position contollers
-                                            DriveConstants.xController,
-                                            DriveConstants.yController,
-                                            DriveConstants.thetaController,
-                                            // Needed for normalizing wheel speeds
-                                            DriveConstants.kMaxSpeedMetersPerSecond,
-                                            // Velocity PID's
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            DriveConstants.driveController,
-                                            drive::getCurrentWheelSpeeds,
-                                            drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-                                            drive),
                             new IntakeCommand(intake, 0),
-                            new AutoShooterCommand(shooter, conveyor, feeder, led, camera),
                             new ConveyorCommand(conveyor, 0),
                             new ShooterCommand(shooter, camera, 0),
                             new FeederCommand(feeder, 0));
+        //     addCommands(
+        //                 new SetDrivePose(drive, trajectories.getCenterPickUp()),
+        //                         new DropIntakeDelay(intake, IntakeConstants.kIntakeDropSpeed, IntakeConstants.kIntakeDropTime),
+        //                     new IntakeCommand(intake, IntakeConstants.kIntakeSpeed),
+        //                     new ConveyorCommand(conveyor, ConveyorConstants.kConveyorSpeed),
+        //                     new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed),
+        //                     new MecanumControllerCommand(
+        //                                     trajectories.getCenterPickUp(),
+        //                                     drive::getPose,
+        //                                     DriveConstants.kFeedforward,
+        //                                     DriveConstants.kDriveKinematics,
+        //                                     // Position contollers
+        //                                     DriveConstants.xController,
+        //                                     DriveConstants.yController,
+        //                                     DriveConstants.thetaController,
+        //                                     // Needed for normalizing wheel speeds
+        //                                     DriveConstants.kMaxSpeedMetersPerSecond,
+        //                                     // Velocity PID's
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     drive::getCurrentWheelSpeeds,
+        //                                     drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+        //                                     drive),
+        //                     new MecanumControllerCommand(
+        //                                     trajectories.getCenterScore(),
+        //                                     drive::getPose,
+        //                                     DriveConstants.kFeedforward,
+        //                                     DriveConstants.kDriveKinematics,
+        //                                     // Position contollers
+        //                                     DriveConstants.xController,
+        //                                     DriveConstants.yController,
+        //                                     DriveConstants.thetaController,
+        //                                     // Needed for normalizing wheel speeds
+        //                                     DriveConstants.kMaxSpeedMetersPerSecond,
+        //                                     // Velocity PID's
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     drive::getCurrentWheelSpeeds,
+        //                                     drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+        //                                     drive),
+        //                     new IntakeCommand(intake, 0),
+        //                     new AutoShooterCommand(shooter, conveyor, feeder, led, camera),
+        //                     new IntakeCommand(intake, IntakeConstants.kIntakeSpeed),
+        //                     new ConveyorCommand(conveyor, ConveyorConstants.kConveyorSpeed),
+        //                     new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed * camera.getShooterSpeed()),
+        //                     new MecanumControllerCommand(
+        //                                     trajectories.getCenterPickUpMore(),
+        //                                     drive::getPose,
+        //                                     DriveConstants.kFeedforward,
+        //                                     DriveConstants.kDriveKinematics,
+        //                                     // Position contollers
+        //                                     DriveConstants.xController,
+        //                                     DriveConstants.yController,
+        //                                     DriveConstants.thetaController,
+        //                                     // Needed for normalizing wheel speeds
+        //                                     DriveConstants.kMaxSpeedMetersPerSecond,
+        //                                     // Velocity PID's
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     drive::getCurrentWheelSpeeds,
+        //                                     drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+        //                                     drive),
+        //                     new MecanumControllerCommand(
+        //                                     trajectories.getCenterScoreMore(),
+        //                                     drive::getPose,
+        //                                     DriveConstants.kFeedforward,
+        //                                     DriveConstants.kDriveKinematics,
+        //                                     // Position contollers
+        //                                     DriveConstants.xController,
+        //                                     DriveConstants.yController,
+        //                                     DriveConstants.thetaController,
+        //                                     // Needed for normalizing wheel speeds
+        //                                     DriveConstants.kMaxSpeedMetersPerSecond,
+        //                                     // Velocity PID's
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     DriveConstants.driveController,
+        //                                     drive::getCurrentWheelSpeeds,
+        //                                     drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+        //                                     drive),
+        //                     new IntakeCommand(intake, 0),
+        //                     new AutoShooterCommand(shooter, conveyor, feeder, led, camera),
+        //                     new ConveyorCommand(conveyor, 0),
+        //                     new ShooterCommand(shooter, camera, 0),
+        //                     new FeederCommand(feeder, 0));
     }
 
     public Pose2d getPose() {

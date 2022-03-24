@@ -75,7 +75,7 @@ public class Constants {
     }
     public static final class IntakeConstants {
         public static final int kIntakePort = 5;
-        public static final double kIntakeSpeed = 0.9;
+        public static final double kIntakeSpeed = 1;
 
         public static final int kIntakeDropPort = 13;
         public static final double kIntakeDropSpeed = 0.6;
@@ -84,7 +84,7 @@ public class Constants {
 
     public static final class ConveyorConstants{
         public static final int kConveyorPort = 1;
-        public static final double kConveyorSpeed = 1;
+        public static final double kConveyorSpeed = 0.7;
     }
 
     public static final class FeederConstants{
@@ -113,7 +113,7 @@ public class Constants {
     public static final class TurretConstants{
         public static final int kTurretPort = 12;
 
-        public static final double kTurretLimit = 11;
+        public static final double kTurretLimit = 9;
 
         public static final double kTurretSpeed = 0.5;
     }
@@ -128,7 +128,7 @@ public class Constants {
         public static final double kTimeToChargeUp = 4; //time in seconds for the shooter to reach ideal speed
 
         @Config
-        public static final double shooterSpeed = 1000; 
+        public static final double shooterSpeed = 2000; 
 
         public static final double kS = 0; //0.052824
         public static final double kV = 0; //0.12603
@@ -164,9 +164,9 @@ public class Constants {
         public static final double kP = 0.005;
 
         public final static double STEER_K = 0.05; // how hard to turn turret
-        public final static double SHOOTER_K = 5; // change power of shooter to reach target
-        public final static double SHOOTER_F = - 0.5;
-        public final static double DESIRED_TARGET_AREA = 0.6; // Area of the target when the robot reaches the wall
+        public final static double SHOOTER_K = 1.75; // change power of shooter to reach target
+        public final static double SHOOTER_F = 0;
+        public final static double DESIRED_TARGET_AREA = 0.75; // Area of the target when the robot reaches the wall
         public final static double MAX_DRIVE = 0.6; // Simple speed limit so we don't drive too fast
     }
 

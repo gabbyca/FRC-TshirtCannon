@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.TrajectorySubsystem;
 import io.github.oblarg.oblog.Logger;
 
@@ -132,6 +133,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Element Y", m_robotContainer.m_camera.getTY());
     SmartDashboard.putNumber("Lift Pose", m_robotContainer.m_lift.getPose());
     SmartDashboard.putNumber("Turret Pose", m_robotContainer.m_turret.getPose());
+
+    m_robotContainer.m_shooter.shoot(ShooterConstants.shooterSpeed * m_robotContainer.m_camera.getShooterSpeed());
 
     if (m_robotContainer.m_camera.alignedToGoal())
       m_robotContainer.m_led.violet();
