@@ -15,11 +15,6 @@ public class SpeedControl extends CommandBase {
     }
     @Override
     public void execute() {
-        if (m_speed == 1)
-            m_led.orange();
-        else
-            m_led.red();
-
         DriveConstants.speed = m_speed;
     }
     

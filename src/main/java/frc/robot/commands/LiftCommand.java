@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.LiftConstants;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 
@@ -18,11 +17,6 @@ public class LiftCommand extends CommandBase {
     }
     @Override
     public void execute() {
-        if (m_speed == LiftConstants.topPose)
-            m_led.blue();
-        else
-            m_led.red();
-
         m_lift.moveLift(m_speed);
     }
     

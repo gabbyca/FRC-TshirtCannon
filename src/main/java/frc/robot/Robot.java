@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,7 +42,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     
-    CameraServer.startAutomaticCapture();
+    UsbCamera camera1 = CameraServer.startAutomaticCapture(); //.setResolution(1280, 720)
+    camera1.setResolution(320, 240);
+    camera1.setFPS(30);
     CameraServer.startAutomaticCapture();
     m_robotContainer = new RobotContainer();
     m_robotContainer.m_drive.resetNavx();

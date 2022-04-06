@@ -29,6 +29,7 @@ import frc.robot.commands.AlignToGoal;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
+import frc.robot.commands.FieldOrientedDrive;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LiftCommand;
@@ -76,6 +77,11 @@ public class RobotContainer {
   private final ArcadeDrive m_ArcadeDrive = new ArcadeDrive(m_drive, () -> m_joystick2.rightY(),
    () -> m_joystick2.rightX(),
     () -> m_joystick2.leftX());
+
+  private final FieldOrientedDrive m_FieldOrientedDrive = new FieldOrientedDrive(m_drive,() -> m_joystick2.rightY(),
+  () -> m_joystick2.rightX(),
+   () -> m_joystick2.leftX(),
+   () -> m_drive.getHeading());
   
   private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
 
@@ -92,9 +98,9 @@ public class RobotContainer {
   private final LiftCommand m_liftUp = new LiftCommand(m_lift, m_led, LiftConstants.topPose);
   private final LiftCommand m_liftDown = new LiftCommand(m_lift, m_led, LiftConstants.bottomPose);
 
-  private final TurretCommand m_turretLeft = new TurretCommand(m_turret, m_camera, TurretConstants.kTurretSpeed);
-  private final TurretCommand m_turretRight = new TurretCommand(m_turret, m_camera, -TurretConstants.kTurretSpeed);
-  private final TurretCommand m_turretStop = new TurretCommand(m_turret, m_camera, 0);
+  private final TurretCommand m_turretLeft = new TurretCommand(m_turret, m_camera, m_led, TurretConstants.kTurretSpeed);
+  private final TurretCommand m_turretRight = new TurretCommand(m_turret, m_camera, m_led, -TurretConstants.kTurretSpeed);
+  private final TurretCommand m_turretStop = new TurretCommand(m_turret, m_camera, m_led, 0);
 
   private final ConveyorCommand m_runConveyor = new ConveyorCommand(m_conveyor, ConveyorConstants.kConveyorSpeed);
   private final ConveyorCommand m_stopConveyor = new ConveyorCommand(m_conveyor, 0);
@@ -108,7 +114,7 @@ public class RobotContainer {
 
   private final DropIntake m_raiseIntake = new DropIntake(m_intake, -1);
   private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed);
-  private final DropIntake m_holdIntake = new DropIntake(m_intake, 0.2);
+  private final DropIntake m_holdIntake = new DropIntake(m_intake, 0.1);
 
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
   private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
@@ -159,15 +165,15 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //sets up our auto chooser(see the classes for details)
-    autonomousChooser.setDefaultOption("2 Ball Auto", m_twoBallAuto);
-    autonomousChooser.addOption("Trajectory Test",
-        mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0)));
-    autonomousChooser.addOption("Left Auto", m_leftAuto);
+    //autonomousChooser.setDefaultOption("2 Ball Auto", m_twoBallAuto);
+    // autonomousChooser.addOption("Trajectory Test",
+    //     mecanumControllerCommand.andThen(() -> m_drive.mecanumDrive(0, 0, 0)));
+    autonomousChooser.setDefaultOption("Left Auto", m_leftAuto);
     autonomousChooser.addOption("Center Auto", m_centerAuto);
     autonomousChooser.addOption("Right Auto", m_rightAuto);
     //sets up drive chooser with the option between FOD and default
     driveChooser.setDefaultOption("Arcade Drive", m_ArcadeDrive);
-    //driveChooser.addOption("Default Drive", m_default);
+    //driveChooser.addOption("Field Oriented Drive", m_FieldOrientedDrive);
     //publishes the choosers
     SmartDashboard.putData("Autonomous Mode", autonomousChooser);
     SmartDashboard.putData("Drive Mode", driveChooser);
