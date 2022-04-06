@@ -56,25 +56,6 @@ public class LeftAuto extends SequentialCommandGroup {
                                             drive::getCurrentWheelSpeeds,
                                             drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
                                             drive),
-                        //     new MecanumControllerCommand(
-                        //                     trajectories.getLeftScore(),
-                        //                     drive::getPose,
-                        //                     DriveConstants.kFeedforward,
-                        //                     DriveConstants.kDriveKinematics,
-                        //                     // Position contollers
-                        //                     DriveConstants.xController,
-                        //                     DriveConstants.yController,
-                        //                     DriveConstants.thetaController,
-                        //                     // Needed for normalizing wheel speeds
-                        //                     DriveConstants.kMaxSpeedMetersPerSecond,
-                        //                     // Velocity PID's
-                        //                     DriveConstants.driveController,
-                        //                     DriveConstants.driveController,
-                        //                     DriveConstants.driveController,
-                        //                     DriveConstants.driveController,
-                        //                     drive::getCurrentWheelSpeeds,
-                        //                     drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-                                            //                     drive),
                                 new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed
                                                             * camera.getShooterSpeed()),
                             
