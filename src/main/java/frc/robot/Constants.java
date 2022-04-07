@@ -79,6 +79,7 @@ public class Constants {
 
         public static final int kIntakeDropPort = 13;
         public static final double kIntakeDropSpeed = 0.6;
+        public static final double kIntakeHoldSpeed = 0.1;
         public static final int kIntakeDropTime = 1000;
     }
 

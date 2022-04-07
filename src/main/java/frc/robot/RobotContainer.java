@@ -114,7 +114,7 @@ public class RobotContainer {
 
   private final DropIntake m_raiseIntake = new DropIntake(m_intake, -1);
   private final DropIntake m_dropIntake = new DropIntake(m_intake, IntakeConstants.kIntakeDropSpeed);
-  private final DropIntake m_holdIntake = new DropIntake(m_intake, 0.1);
+  private final DropIntake m_holdIntake = new DropIntake(m_intake, IntakeConstants.kIntakeHoldSpeed);
 
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
   private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
