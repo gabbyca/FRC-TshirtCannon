@@ -10,19 +10,22 @@ import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 
 public class AutoShooterCommand extends CommandBase {
     ShooterSubsystem m_shooter;
     ConveyorSubsystem m_conveyor;
     FeederSubsystem m_feeder;
     BlinkinSubsystem m_led;
+    TurretSubsystem m_turret;
     LimelightSubsystem m_camera;
 
     public AutoShooterCommand(ShooterSubsystem shooter, ConveyorSubsystem conveyor, FeederSubsystem feeder,
-            BlinkinSubsystem led, LimelightSubsystem camera) {
+            BlinkinSubsystem led, TurretSubsystem turret, LimelightSubsystem camera) {
         m_shooter = shooter;
         m_conveyor = conveyor;
         m_feeder = feeder;
+        m_turret = turret;
         m_led = led;
         m_camera = camera;
         addRequirements(m_shooter, m_conveyor, m_feeder, m_led, m_camera);
@@ -33,18 +36,21 @@ public class AutoShooterCommand extends CommandBase {
         m_shooter.shoot((ShooterConstants.shooterSpeed * m_camera.getShooterSpeed()));
         for (int i = 0; i < 100; i++) { // 2 sec delay
             m_shooter.updatePid();
+            m_turret.rotate(m_camera.getTurnSpeed());
             Robot.wait(20);
         }
         m_led.green();
         m_feeder.feed(FeederConstants.kFeederSpeed);
         for (int i = 0; i < 100; i++) { // 2 sec delay
             m_shooter.updatePid();
+            m_turret.rotate(m_camera.getTurnSpeed());
             Robot.wait(20);
         }
         m_conveyor.convey(ConveyorConstants.kConveyorSpeed);
         m_feeder.feed(FeederConstants.kFeederSpeed);
         for (int i = 0; i < 100; i++) { // 2 sec delay
             m_shooter.updatePid();
+            m_turret.rotate(m_camera.getTurnSpeed());
             Robot.wait(20);
         }
         m_feeder.stop();

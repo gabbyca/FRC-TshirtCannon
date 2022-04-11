@@ -9,6 +9,7 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AutoShooterCommand;
 import frc.robot.commands.ConveyorCommand;
+import frc.robot.commands.DriveStop;
 import frc.robot.commands.DropIntakeDelay;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.IntakeCommand;
@@ -22,12 +23,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TrajectorySubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 
 public class LeftAuto extends SequentialCommandGroup {
 
         TrajectorySubsystem m_trajectories;
     public LeftAuto(DriveSubsystem drive, IntakeSubsystem intake, ConveyorSubsystem conveyor, ShooterSubsystem shooter,
-                    FeederSubsystem feeder, LimelightSubsystem camera, BlinkinSubsystem led,
+                    FeederSubsystem feeder, TurretSubsystem turret, LimelightSubsystem camera, BlinkinSubsystem led,
                     TrajectorySubsystem trajectories) {
                             m_trajectories = trajectories;
                             addCommands(
@@ -55,11 +57,12 @@ public class LeftAuto extends SequentialCommandGroup {
                                             DriveConstants.driveController,
                                             drive::getCurrentWheelSpeeds,
                                             drive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
-                                            drive),
+                                                            drive),
+                                            new DriveStop(drive),
                                 new ShooterCommand(shooter, camera, ShooterConstants.shooterSpeed
                                                             * camera.getShooterSpeed()),
                             
-                                            new AutoShooterCommand(shooter, conveyor, feeder, led, camera),
+                                            new AutoShooterCommand(shooter, conveyor, feeder, led, turret, camera),
                                             new IntakeCommand(intake, 0),
                             new ConveyorCommand(conveyor, 0),
                             new ShooterCommand(shooter, camera, 0),

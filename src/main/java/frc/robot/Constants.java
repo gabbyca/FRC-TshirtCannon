@@ -165,7 +165,7 @@ public class Constants {
         public static final double kP = 0.005;
 
         public final static double STEER_K = 0.05; // how hard to turn turret
-        public final static double SHOOTER_K = 1.75; // change power of shooter to reach target
+        public final static double SHOOTER_K = 1.6; // change power of shooter to reach target //1.75
         public final static double SHOOTER_F = 0;
         public final static double DESIRED_TARGET_AREA = 0.75; // Area of the target when the robot reaches the wall
         public final static double MAX_DRIVE = 0.6; // Simple speed limit so we don't drive too fast

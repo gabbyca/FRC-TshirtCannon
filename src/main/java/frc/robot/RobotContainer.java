@@ -122,11 +122,11 @@ public class RobotContainer {
   private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret,
       m_camera);
 
-  private final LeftAuto m_leftAuto = new LeftAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_camera, m_led,
+  private final LeftAuto m_leftAuto = new LeftAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_turret, m_camera, m_led,
       m_trajectories);
-  private final CenterAuto m_centerAuto = new CenterAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_camera, m_led,
+  private final CenterAuto m_centerAuto = new CenterAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_turret, m_camera, m_led,
       m_trajectories);
-  private final RightAuto m_rightAuto = new RightAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_camera, m_led,
+  private final RightAuto m_rightAuto = new RightAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_turret, m_camera, m_led,
       m_trajectories);
   
   MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
@@ -220,8 +220,8 @@ public class RobotContainer {
         .whenReleased(m_stopConveyor); 
 
     m_joystick2.leftBumper()
-      .whileHeld(m_fastMode)
-      .whenReleased(m_slowMode);
+      .whileHeld(m_slowMode)
+      .whenReleased(m_fastMode); 
 
     m_joystick1.rightBumper()
       .whenPressed(m_runIntake)
