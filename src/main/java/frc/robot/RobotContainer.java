@@ -25,7 +25,6 @@ import frc.robot.Constants.JoystickConstants;
 import frc.robot.Constants.LiftConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.TurretConstants;
-import frc.robot.commands.AlignToGoal;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
@@ -81,7 +80,7 @@ public class RobotContainer {
   //  () -> m_joystick2.leftX(),
   //  () -> m_drive.getHeading());
   
-  private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
+  //private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
 
   private final IntakeCommand m_runIntake = new IntakeCommand(m_intake, IntakeConstants.kIntakeSpeed);
   private final IntakeCommand m_stopIntake = new IntakeCommand(m_intake, 0);
