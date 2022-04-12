@@ -33,9 +33,9 @@ public class ArcadeDrive extends CommandBase {
     }
     @Override
     public void execute() {
-        m_drive.mecanumDrive(-m_x.getAsDouble() * 0.5 * DriveConstants.speed,
-                -m_y.getAsDouble() * 0.5 * DriveConstants.speed,
-                m_c.getAsDouble() * 0.5 * DriveConstants.speed);
+        m_drive.mecanumDrive(-m_x.getAsDouble() * DriveConstants.speed,
+                -m_y.getAsDouble() * DriveConstants.speed,
+                m_c.getAsDouble() * DriveConstants.speed);
     }
     
 }

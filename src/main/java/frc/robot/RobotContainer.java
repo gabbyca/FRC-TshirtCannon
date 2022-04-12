@@ -29,7 +29,6 @@ import frc.robot.commands.AlignToGoal;
 import frc.robot.commands.ConveyorCommand;
 import frc.robot.commands.DropIntake;
 import frc.robot.commands.FeederCommand;
-import frc.robot.commands.FieldOrientedDrive;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.LiftCommand;
@@ -39,7 +38,6 @@ import frc.robot.commands.TurretCommand;
 import frc.robot.commands.Autonomous.CenterAuto;
 import frc.robot.commands.Autonomous.LeftAuto;
 import frc.robot.commands.Autonomous.RightAuto;
-import frc.robot.commands.Autonomous.SimpleAuto;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -78,10 +76,10 @@ public class RobotContainer {
    () -> m_joystick2.rightX(),
     () -> m_joystick2.leftX());
 
-  private final FieldOrientedDrive m_FieldOrientedDrive = new FieldOrientedDrive(m_drive,() -> m_joystick2.rightY(),
-  () -> m_joystick2.rightX(),
-   () -> m_joystick2.leftX(),
-   () -> m_drive.getHeading());
+  // private final FieldOrientedDrive m_FieldOrientedDrive = new FieldOrientedDrive(m_drive,() -> m_joystick2.rightY(),
+  // () -> m_joystick2.rightX(),
+  //  () -> m_joystick2.leftX(),
+  //  () -> m_drive.getHeading());
   
   private final AlignToGoal m_alignToGoal = new AlignToGoal(m_drive, m_camera);
 
@@ -119,8 +117,7 @@ public class RobotContainer {
   private final SpeedControl m_slowMode = new SpeedControl(m_led, 0.5);
   private final SpeedControl m_fastMode = new SpeedControl(m_led,1);
 
-  private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret,
-      m_camera);
+  //private final SimpleAuto m_twoBallAuto = new SimpleAuto(m_drive, m_shooter, m_intake, m_conveyor, m_feeder, m_turret, m_camera);
 
   private final LeftAuto m_leftAuto = new LeftAuto(m_drive, m_intake, m_conveyor, m_shooter, m_feeder, m_turret, m_camera, m_led,
       m_trajectories);
