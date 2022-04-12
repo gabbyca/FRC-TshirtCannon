@@ -128,11 +128,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("NAVX Angle", m_robotContainer.m_drive.getHeading());
     SmartDashboard.putNumber("Shooter Velocity", m_robotContainer.m_shooter.getVelocity());
     SmartDashboard.putBoolean("Detect goal?", m_robotContainer.m_camera.hasTarget());
-    SmartDashboard.putNumber("Intake sensor value", m_robotContainer.m_intake.getInches());
-    SmartDashboard.putBoolean("Element in intake?", m_robotContainer.m_intake.inIntake());
-    SmartDashboard.putNumber("Element count", m_robotContainer.m_intake.getCount());
-    SmartDashboard.putNumber("Element X", m_robotContainer.m_camera.getTX());
-    SmartDashboard.putNumber("Element Y", m_robotContainer.m_camera.getTY());
+    SmartDashboard.putNumber("Goal X", m_robotContainer.m_camera.getTX());
+    SmartDashboard.putNumber("Goal Y", m_robotContainer.m_camera.getTY());
     SmartDashboard.putNumber("Lift Pose", m_robotContainer.m_lift.getPose());
     SmartDashboard.putNumber("Turret Pose", m_robotContainer.m_turret.getPose());
 
