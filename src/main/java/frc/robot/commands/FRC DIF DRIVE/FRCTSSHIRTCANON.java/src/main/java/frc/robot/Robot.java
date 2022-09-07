@@ -7,18 +7,19 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.DifferentialDriveSubsystem;
-import frc.robot.subsystems.TrajectorySubsystem;
 import io.github.oblarg.oblog.Logger;
 
 
@@ -34,12 +35,13 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   private DifferentialDrive m_myRobot;
-  private Joystick m_leftStick;
-  private Joystick m_rightStick;
 
-  private final MotorController m_leftMotor = new PWMSparkMax(0);
-  private final MotorController m_rightMotor = new PWMSparkMax(1);
+  //for turn
+
   DifferentialDriveSubsystem difDrive = new DifferentialDriveSubsystem(); 
+  private Joystick m_rightStick = new Joystick(0); 
+  private Joystick m_leftStick = new Joystick(0); 
+
 
 
   /**
@@ -50,29 +52,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
 
-    m_rightMotor.setInverted(true);
-
-
-
-
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     
-    CameraServer.startAutomaticCapture(); //.setResolution(1280, 720)
-    //camera1.setResolution(176, 144);
-    //camera1.setFPS(20);
-    CameraServer.startAutomaticCapture();
-    m_robotContainer = new RobotContainer();
-    // m_robotContainer.m_drive.resetNavx();
-    // m_robotContainer.m_drive.motorBrake();
-    Field2d m_field = new Field2d();
-    SmartDashboard.putData(m_field);
-    Logger.configureLoggingAndConfig(this, false);
-
-    // Push the trajectory to Field2d.
-    m_field.getObject("traj").setTrajectory(TrajectorySubsystem.exampleTrajectory);
-    m_field.getObject("traj2").setTrajectory(TrajectorySubsystem.anotherTrajectory);
-
+    
   }
 
   /**
@@ -143,8 +126,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    m_myRobot.tankDrive(m_leftStick.getY(), m_rightStick.getY());
-    difDrive.drive(m_leftStick.getY(), m_rightStick.getY());
+    //m_myRobot.tankDrive(m_leftStick.getY(), m_rightStick.getY());
+    difDrive.drive((m_leftStick.leftY(), m_rightStick.rightX());
+  
+    
+  
 
     // SmartDashboard.putNumber("NAVX Angle", m_robotContainer.m_drive.getHeading());
     // SmartDashboard.putNumber("Shooter Velocity", m_robotContainer.m_shooter.getVelocity());

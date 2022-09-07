@@ -36,7 +36,9 @@ public class ShooterSubsystem extends SubsystemBase {
         m_shooterEncoder.setVelocityConversionFactor(1);
         m_angle.set(0);
     }
-     
+    
+    
+   
     @Override
     public void periodic() {
         updatePid();
