@@ -126,10 +126,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     //m_myRobot.tankDrive(m_leftStick.getY(), m_rightStick.getY());
+
+    //??
     difDrive.drive((m_leftStick.leftY(), m_rightStick.rightX());
   
     
-  
 
     // SmartDashboard.putNumber("NAVX Angle", m_robotContainer.m_drive.getHeading());
     // SmartDashboard.putNumber("Shooter Velocity", m_robotContainer.m_shooter.getVelocity());
